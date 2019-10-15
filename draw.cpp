@@ -32,6 +32,32 @@ void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color
     glEnd();
 }
 
+void Draw::drawEllipse(float cx, float cy, float rx, float ry, Color color, int num_segments)
+{
+    float theta = 2 * 3.1415926 / float(num_segments);
+    float c = cosf(theta); //precalculate the sine and cosine
+    float s = sinf(theta);
+    float t;
+
+    float x = 1; //we start at angle = 0
+    float y = 0;
+
+    glColor3f(color.getR(), color.getG(), color.getB());
+
+    glBegin(GL_TRIANGLE_FAN);
+    for (int ii = 0; ii < num_segments; ii++)
+    {
+        //apply radius and offset
+        glVertex2f(x * rx + cx, y * ry + cy); //output vertex
+
+        //apply the rotation matrix
+        t = x;
+        x = c * x - s * y;
+        y = s * t + c * y;
+    }
+    glEnd();
+}
+
 void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 {
     //filled circle
@@ -52,6 +78,11 @@ void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
     }
 
     glEnd();
+}
+
+void Draw::drawRectangle(Point p1, Point p2)
+{
+    glRectf(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 }
 
 void Draw::updateCurrentCenter(float x, float y, float x_window_size, float y_window_size)
@@ -81,6 +112,11 @@ bool Draw::checkIntersection(Circle circle)
 void Draw::drawCircle(Circle circle)
 {
     drawCircle(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), num_segments, circle.getColor());
+}
+
+void Draw::drawEllipse(Circle circle)
+{
+    drawEllipse(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), circle.getRadius() / 2, circle.getColor(), num_segments);
 }
 
 void Draw::drawCircle(Color color)
@@ -140,12 +176,12 @@ void Draw::drawLine(Line line)
 
 void Draw::drawAllLines()
 {
-    for (line_it = lines.begin(); line_it != lines.end(); line_it++) {
+    for (line_it = lines.begin(); line_it != lines.end(); line_it++)
+    {
         drawLine(*line_it);
     }
 }
 
-void Draw::drawGame() 
+void Draw::drawGame()
 {
-
 }

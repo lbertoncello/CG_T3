@@ -33,6 +33,13 @@ class PlayerAirplane
         speed.push_back(0);
     }
 
+    void drawMainBody();
+    void drawTail();
+    void drawCockpit();
+    void drawWings();
+    void drawPropeller();
+    void drawCannon();
+
 public:
     PlayerAirplane()
     {

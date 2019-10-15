@@ -3,7 +3,43 @@
 void PlayerAirplane::draw()
 {
     glTranslatef(dX, dY, 0.0);
-    drawer.drawFilledCircle(this->body);
+    //drawer.drawFilledCircle(this->body);
+    drawMainBody();
+    drawTail();
+    drawCockpit();
+    drawWings();
+    drawCannon();
+}
+
+void PlayerAirplane::drawMainBody()
+{
+    drawer.drawEllipse(this->body);
+}
+
+void PlayerAirplane::drawTail()
+{
+}
+
+void PlayerAirplane::drawCockpit()
+{
+}
+
+void PlayerAirplane::drawWings()
+{
+    Point p1 = this->body.getCenter();
+    Point p2;
+    p2.setX(p1.getX() + 20.0);
+    p2.setY(p1.getY() + 5.0);
+
+    drawer.drawRectangle(p1, p2);
+}
+
+void PlayerAirplane::drawPropeller()
+{
+}
+
+void PlayerAirplane::drawCannon()
+{
 }
 
 float PlayerAirplane::calcMovement_x(GLfloat deltaIdleTime)
