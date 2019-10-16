@@ -23,21 +23,24 @@ void GameSetup::idle(void)
 
 void GameSetup::init(void)
 {
+    gameRuntime.getGame().init();
+
     glClearColor(gameRuntime.getBackgroundColor().getR(), gameRuntime.getBackgroundColor().getG(), gameRuntime.getBackgroundColor().getB(), 0.0);
 
     /* Inicializa sistema de viz */
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    cout << gameRuntime.getGame().getFlightArea().getArea().getRadius() << endl;
+    // glOrtho(gameRuntime.getGame().getFlightArea().getArea().getCenter_x() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_x() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_y() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_y() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+    //         -1, 1);
 
-    //    glOrtho(0, window_size_x, 0, window_size_y, -1, 1);
-    //glOrtho(200, 800, 800, 200, -1, 1);
-    gameRuntime.getGame().getFlightArea().getArea().getCenter_x() - gameRuntime.getGame().getFlightArea().getArea().getRadius();
-    glOrtho(gameRuntime.getGame().getFlightArea().getArea().getCenter_x() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-            gameRuntime.getGame().getFlightArea().getArea().getCenter_x() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-            gameRuntime.getGame().getFlightArea().getArea().getCenter_y() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-            gameRuntime.getGame().getFlightArea().getArea().getCenter_y() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+    glOrtho(-gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+            gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+            gameRuntime.getGame().getFlightArea().getArea().getRadius(),
+            -gameRuntime.getGame().getFlightArea().getArea().getRadius(),
             -1, 1);
 
     currentIdleTime = glutGet(GLUT_ELAPSED_TIME);
@@ -52,6 +55,7 @@ bool GameSetup::initRuntimeParameters(string filename, string arenaFilename)
     return parametersReading.parametersInit(filename.c_str());
 }
 
-bool GameSetup::initArenaFile() {
+bool GameSetup::initArenaFile()
+{
     return this->parametersReading.readArenaFile();
 }

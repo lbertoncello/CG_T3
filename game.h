@@ -100,6 +100,7 @@ public:
     }
 
     void takeOff();
+    void init();
     void drawGame(GLfloat deltaIdleTime);
     void movePlayerAirplaneUp();
     void movePlayerAirplaneDown();

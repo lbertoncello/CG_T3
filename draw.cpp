@@ -27,7 +27,8 @@ void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color
         float x = r * cosf(theta); //calculate the x component
         float y = r * sinf(theta); //calculate the y component
 
-        glVertex2f(x + cx, y + cy); //output vertex
+        //glVertex2f(x + cx, y + cy); //output vertex
+        glVertex2f(x, y); //output vertex
     }
     glEnd();
 }
@@ -48,7 +49,7 @@ void Draw::drawEllipse(float cx, float cy, float rx, float ry, Color color, int 
     for (int ii = 0; ii < num_segments; ii++)
     {
         //apply radius and offset
-        glVertex2f(x * rx + cx, y * ry + cy); //output vertex
+        glVertex2f(x * rx, y * ry); //output vertex
 
         //apply the rotation matrix
         t = x;
@@ -58,10 +59,31 @@ void Draw::drawEllipse(float cx, float cy, float rx, float ry, Color color, int 
     glEnd();
 }
 
+// #define DEG2RAD 3.14159 / 180.0
+
+// void Draw::drawEllipse(float cx, float cy, float radiusX, float radiusY, Color color, int num_segments)
+// {
+//     int i;
+//     glColor3f(color.getR(), color.getG(), color.getB());
+
+//     glBegin(GL_LINE_LOOP);
+
+//     for (i = 0; i < 360; i++)
+//     {
+//         float rad = i * DEG2RAD;
+//         glVertex2f(cos(rad) * radiusX,
+//                    sin(rad) * radiusY);
+//     }
+
+//     glEnd();
+// }
+
 void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 {
     //filled circle
     float x2, y2;
+    x1 = 0;
+    y1 = 0;
     float angle;
 
     //x1 = 0.5,y1=0.6;
@@ -116,7 +138,7 @@ void Draw::drawCircle(Circle circle)
 
 void Draw::drawEllipse(Circle circle)
 {
-    drawEllipse(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), circle.getRadius() / 2, circle.getColor(), num_segments);
+    drawEllipse(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), circle.getRadius() / 4, circle.getColor(), num_segments);
 }
 
 void Draw::drawCircle(Color color)

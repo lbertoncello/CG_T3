@@ -23,6 +23,10 @@ vector<float> Game::calcTakeOffAcceleration()
     return calc.calcAccelerationRequired(initialPosition, finalPosition, initialSpeed, time);
 }
 
+void Game::init() {
+    playerAirplane.setCurrentPosition(airportRunway.getBody().getPoint1());
+}
+
 void Game::takeOff()
 {
     playerAirplane.setTakingOff(true);
@@ -169,6 +173,7 @@ bool Game::checkFlightEnemiesCollision(int moveDirection)
     {
         if (playerAirplane.checkIntersection(flightEnemy_it->getBody(), moveDirection, deltaIdleTime))
         {
+            cout << "COLISION!" << endl;
             return true;
         }
     }

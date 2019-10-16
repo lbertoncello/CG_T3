@@ -33,7 +33,7 @@ int main(int argc, char **argv)
             if (gameSetup->initArenaFile())
             {
                 glutInit(&argc, argv);
-                glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+                glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
                 glutInitWindowSize(gameSetup->getGameRuntime().getWindowSize_x(), gameSetup->getGameRuntime().getWindowSize_y());
                 glutInitWindowPosition(gameSetup->getGameRuntime().getWindowInitial_x_position(), gameSetup->getGameRuntime().getWindowInitial_y_position());
                 glutCreateWindow(gameSetup->getGameRuntime().getWindowTitle().c_str());

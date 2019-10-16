@@ -114,10 +114,16 @@ public:
             startPositionInitialized = true;
         }
 
-        dX = currentPosition.getX() - this->startPosition.getX();
-        dY = currentPosition.getY() - this->startPosition.getY();
+        // dX = currentPosition.getX() - this->startPosition.getX();
+        // dY = currentPosition.getY() - this->startPosition.getY();
+
+        dX = currentPosition.getX();
+        dY = currentPosition.getY();
 
         this->currentPosition = currentPosition;
+
+        //this->currentPosition.setX(currentPosition.getX() - this->startPosition.getX());
+        //this->currentPosition.setY(currentPosition.getY() - this->startPosition.getY());
     }
 
     void setFlying(bool flying)
