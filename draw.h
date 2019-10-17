@@ -30,7 +30,7 @@ private:
 
     void drawCircle(float cx, float cy, float r, int num_segments, Color color);
     void drawFilledCircle(float x1, float y1, double radius, Color color);
-    void drawEllipse(float cx, float cy, float rx, float ry, Color color, int num_segments);
+    void drawEllipse(float rx, float ry, Color color, int num_segments);
 
 public:
     Draw() {}
@@ -83,9 +83,11 @@ public:
     void drawCircle(Color color);
     void drawCircle(Circle circle);
     void drawEllipse(Circle circle);
+    void drawEllipse(float radius, Color color);
     void drawRectangle(Point p1, Point p2);
-    void drawRectangle(float width, float height);
+    void drawRectangle(float width, float height, Color color);
     void drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color);
+    void drawTriangle(Point p1, Point p2, Point p3, Color color);
     void drawFilledCircle(Color color);
     void drawFilledCircle(Circle circle);
     void drawAllCircles(Color color);

@@ -33,7 +33,7 @@ void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color
     glEnd();
 }
 
-void Draw::drawEllipse(float cx, float cy, float rx, float ry, Color color, int num_segments)
+void Draw::drawEllipse(float rx, float ry, Color color, int num_segments)
 {
     float theta = 2 * 3.1415926 / float(num_segments);
     float c = cosf(theta); //precalculate the sine and cosine
@@ -105,34 +105,45 @@ void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 void Draw::drawRectangle(Point p1, Point p2)
 {
     // //glColor3f (red, green, blue);
-	// glBegin(GL_POLYGON);
-	// 	glVertex3f (-width / 2.0, 0, 0.0);
-	// 	glVertex3f (width / 2.0, 0, 0.0);
-	// 	glVertex3f (width / 2.0, height, 0.0);
-	// 	glVertex3f (-width / 2.0, height, 0.0);
-	// glEnd();
+    // glBegin(GL_POLYGON);
+    // 	glVertex3f (-width / 2.0, 0, 0.0);
+    // 	glVertex3f (width / 2.0, 0, 0.0);
+    // 	glVertex3f (width / 2.0, height, 0.0);
+    // 	glVertex3f (-width / 2.0, height, 0.0);
+    // glEnd();
 }
 
 void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
 {
-    glColor3f (color.getR(), color.getG(), color.getB());
-	glBegin(GL_POLYGON);
-		glVertex3f (p1.getX(), p1.getY(), 0.0);
-		glVertex3f (p2.getX(), p2.getY(), 0.0);
-		glVertex3f (p3.getX(), p3.getY(), 0.0);
-		glVertex3f (p4.getX(), p4.getY(), 0.0);
-	glEnd();
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glBegin(GL_POLYGON);
+    glVertex3f(p1.getX(), p1.getY(), 0.0);
+    glVertex3f(p2.getX(), p2.getY(), 0.0);
+    glVertex3f(p3.getX(), p3.getY(), 0.0);
+    glVertex3f(p4.getX(), p4.getY(), 0.0);
+    glEnd();
 }
 
-void Draw::drawRectangle(float width, float height)
+void Draw::drawRectangle(float width, float height, Color color)
 {
-    //glColor3f (red, green, blue);
-	glBegin(GL_QUADS);
-		glVertex3f (-width / 2.0, 0, 0.0);
-		glVertex3f (width / 2.0, 0, 0.0);
-		glVertex3f (width / 2.0, height, 0.0);
-		glVertex3f (-width / 2.0, height, 0.0);
-	glEnd();
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glBegin(GL_QUADS);
+    glVertex3f(-width / 2.0, 0, 0.0);
+    glVertex3f(width / 2.0, 0, 0.0);
+    glVertex3f(width / 2.0, height, 0.0);
+    glVertex3f(-width / 2.0, height, 0.0);
+    glEnd();
+}
+
+void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+
+    glBegin(GL_TRIANGLES);
+    glVertex3f(p1.getX(), p1.getY(), 0.0);
+    glVertex3f(p2.getX(), p2.getY(), 0.0);
+    glVertex3f(p3.getX(), p3.getY(), 0.0);
+    glEnd();
 }
 
 void Draw::updateCurrentCenter(float x, float y, float x_window_size, float y_window_size)
@@ -166,7 +177,12 @@ void Draw::drawCircle(Circle circle)
 
 void Draw::drawEllipse(Circle circle)
 {
-    drawEllipse(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), circle.getRadius() / 4, circle.getColor(), num_segments);
+    drawEllipse(circle.getRadius(), circle.getRadius() / 4, circle.getColor(), num_segments);
+}
+
+void Draw::drawEllipse(float radius, Color color)
+{
+    drawEllipse(radius, radius / 4, color, num_segments);
 }
 
 void Draw::drawCircle(Color color)

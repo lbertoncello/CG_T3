@@ -6,11 +6,11 @@ void PlayerAirplane::draw()
     glTranslatef(dX, dY, 0.0);
     glRotatef(-15, 0.0, 0.0, 1.0);
 
-    drawMainBody();
-    drawTail();
-    drawCockpit();
     drawWings();
     drawCannon();
+    drawMainBody();
+    drawCockpit();
+    drawTail();
     glPopMatrix();
 }
 
@@ -26,31 +26,63 @@ void PlayerAirplane::drawMainBody()
 
 void PlayerAirplane::drawTail()
 {
+    glPushMatrix();
+
+    Color color(0.0, 0.0, 0.0);
+
+    glTranslatef(-this->body.getRadius() / 2, 0.0, 0.0);
+    glRotatef(90, 0.0, 0.0, 1.0);
+    drawer.drawRectangle(this->body.getRadius() / 5, this->body.getRadius() / 2, color);
+
+    glPopMatrix();
 }
 
 void PlayerAirplane::drawCockpit()
 {
+    glPushMatrix();
+
+    float cockpitRadius = this->body.getRadius() / 2;
+    Color cockpitColor(0.0, 0.0, 0.0);
+
+    glTranslatef(this->body.getRadius() / 3, 0.0, 0.0);
+    drawer.drawEllipse(cockpitRadius, cockpitColor);
+
+    glPopMatrix();
 }
 
 void PlayerAirplane::drawWings()
 {
-    Color wingsColor(1.0, 1.0, 0.0);
+    Color wingsColor(0.0, 0.0, 0.0);
 
     glPushMatrix();
-    Point p1(this->body.getRadius() / 8, this->body.getRadius() / 8);
+    Point p1(0, 0);
     Point p2(p1.getX() + this->body.getRadius() / 3, p1.getY());
     Point p3(p1.getX() - this->body.getRadius() / 6, this->body.getRadius());
     Point p4(p1.getX() + this->body.getRadius() / 3 - this->body.getRadius() / 6, this->body.getRadius());
+
+    glPushMatrix();
+
+    glTranslatef(0, this->body.getRadius() / 2, 0.0);
+    drawPropeller();
+
+    glPopMatrix();
 
     drawer.drawRectangle(p4, p2, p1, p3, wingsColor);
 
     glPopMatrix();
 
     glPushMatrix();
-    Point p5(this->body.getRadius() / 8, -this->body.getRadius() / 8);
+    Point p5(0, 0);
     Point p6(p1.getX() + this->body.getRadius() / 3, p1.getY());
     Point p7(p1.getX() - this->body.getRadius() / 6, -this->body.getRadius());
     Point p8(p1.getX() + this->body.getRadius() / 3 - this->body.getRadius() / 6, -this->body.getRadius());
+
+    glPushMatrix();
+
+    glTranslatef(0, -this->body.getRadius() / 2, 0.0);
+    drawPropeller();
+
+    glPopMatrix();
 
     drawer.drawRectangle(p6, p8, p7, p5, wingsColor);
 
@@ -59,10 +91,51 @@ void PlayerAirplane::drawWings()
 
 void PlayerAirplane::drawPropeller()
 {
+    glPushMatrix();
+
+    Color rodColor(0.0, 0.0, 0.0);
+    //glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
+
+    glPushMatrix();
+
+    glRotatef(-90, 0.0, 0.0, 1.0);
+    drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.5, rodColor);
+
+    glPopMatrix();
+
+    glPushMatrix();
+
+    Color propellerColor(1.0, 1.0, 0.0);
+
+    Point p1(-this->body.getRadius() / 4, -this->body.getRadius() / 6);
+    Point p2(this->body.getRadius() / 4, -this->body.getRadius() / 6);
+    Point p3(0, 0);
+
+    Point p4(-this->body.getRadius() / 4, this->body.getRadius() / 6);
+    Point p5(this->body.getRadius() / 4, this->body.getRadius() / 6);
+    Point p6(0, 0);
+
+    glTranslatef(this->body.getRadius() / 2.0, 0, 0.0);
+
+    drawer.drawTriangle(p3, p2, p1, propellerColor);
+    drawer.drawTriangle(p4, p5, p6, propellerColor);
+
+    glPopMatrix();
+
+    glPopMatrix();
 }
 
 void PlayerAirplane::drawCannon()
 {
+    glPushMatrix();
+
+    Color color(0.0, 0.0, 0.0);
+
+    glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
+    glRotatef(-90, 0.0, 0.0, 1.0);
+    drawer.drawRectangle(this->body.getRadius() / 5, this->body.getRadius() / 2, color);
+
+    glPopMatrix();
 }
 
 float PlayerAirplane::calcMovement_x(GLfloat deltaIdleTime)
