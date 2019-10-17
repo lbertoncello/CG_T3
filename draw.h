@@ -84,6 +84,8 @@ public:
     void drawCircle(Circle circle);
     void drawEllipse(Circle circle);
     void drawRectangle(Point p1, Point p2);
+    void drawRectangle(float width, float height);
+    void drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color);
     void drawFilledCircle(Color color);
     void drawFilledCircle(Circle circle);
     void drawAllCircles(Color color);

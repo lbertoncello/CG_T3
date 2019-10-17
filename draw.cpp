@@ -104,7 +104,35 @@ void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 
 void Draw::drawRectangle(Point p1, Point p2)
 {
-    glRectf(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    // //glColor3f (red, green, blue);
+	// glBegin(GL_POLYGON);
+	// 	glVertex3f (-width / 2.0, 0, 0.0);
+	// 	glVertex3f (width / 2.0, 0, 0.0);
+	// 	glVertex3f (width / 2.0, height, 0.0);
+	// 	glVertex3f (-width / 2.0, height, 0.0);
+	// glEnd();
+}
+
+void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
+{
+    glColor3f (color.getR(), color.getG(), color.getB());
+	glBegin(GL_POLYGON);
+		glVertex3f (p1.getX(), p1.getY(), 0.0);
+		glVertex3f (p2.getX(), p2.getY(), 0.0);
+		glVertex3f (p3.getX(), p3.getY(), 0.0);
+		glVertex3f (p4.getX(), p4.getY(), 0.0);
+	glEnd();
+}
+
+void Draw::drawRectangle(float width, float height)
+{
+    //glColor3f (red, green, blue);
+	glBegin(GL_QUADS);
+		glVertex3f (-width / 2.0, 0, 0.0);
+		glVertex3f (width / 2.0, 0, 0.0);
+		glVertex3f (width / 2.0, height, 0.0);
+		glVertex3f (-width / 2.0, height, 0.0);
+	glEnd();
 }
 
 void Draw::updateCurrentCenter(float x, float y, float x_window_size, float y_window_size)
