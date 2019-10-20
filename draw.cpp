@@ -59,25 +59,6 @@ void Draw::drawEllipse(float rx, float ry, Color color, int num_segments)
     glEnd();
 }
 
-// #define DEG2RAD 3.14159 / 180.0
-
-// void Draw::drawEllipse(float cx, float cy, float radiusX, float radiusY, Color color, int num_segments)
-// {
-//     int i;
-//     glColor3f(color.getR(), color.getG(), color.getB());
-
-//     glBegin(GL_LINE_LOOP);
-
-//     for (i = 0; i < 360; i++)
-//     {
-//         float rad = i * DEG2RAD;
-//         glVertex2f(cos(rad) * radiusX,
-//                    sin(rad) * radiusY);
-//     }
-
-//     glEnd();
-// }
-
 void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 {
     //filled circle
@@ -236,7 +217,20 @@ void Draw::drawLine(Line line)
 
     glBegin(GL_LINES);
     glVertex2d(line.getPoint1_x(), line.getPoint1_y());
+    //glVertex2d(0, 0);
     glVertex2d(line.getPoint2_x(), line.getPoint2_y());
+    glEnd();
+}
+
+void Draw::drawLine(Point p1, Point p2, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glPointSize(0.5);
+
+    glBegin(GL_LINES);
+    //glVertex2d(line.getPoint1_x(), line.getPoint1_y());
+    glVertex2d(p1.getX(), p1.getY());
+    glVertex2d(p2.getX(), p2.getY());
     glEnd();
 }
 

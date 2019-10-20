@@ -158,7 +158,7 @@ public:
     //void moveLeft(float dX);
     void moveRight(GLfloat deltaIdleTime);
     //void moveRight(float dX);
-    bool checkIntersection(Circle circle, int moveDirection, GLfloat deltaIdleTime);
+    bool checkIntersection(Circle flightAreaBody, Circle enemyBody, int moveDirection, GLfloat deltaIdleTime);
     float calcMovement_x(GLfloat deltaIdleTime);
     float calcMovement_y(GLfloat deltaIdleTime);
     Circle getAdjustedBody();

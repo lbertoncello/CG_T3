@@ -93,6 +93,7 @@ public:
     void drawAllCircles(Color color);
     void drawAllCircles();
     void drawLine(Line line);
+    void drawLine(Point p1, Point p2, Color color);
     void drawAllLines();
     void drawGame();
     void chooseCircleToMove();

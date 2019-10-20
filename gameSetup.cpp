@@ -2,7 +2,6 @@
 
 void GameSetup::display(void)
 {
-    gameRuntime.keyOperations();
     /* Limpar todos os pixels */
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -15,9 +14,12 @@ void GameSetup::display(void)
 
 void GameSetup::idle(void)
 {
+    gameRuntime.keyOperations();
+
     currentIdleTime = glutGet(GLUT_ELAPSED_TIME);
     deltaIdleTime = (currentIdleTime - lastIdleTime) / 1000;
     lastIdleTime = currentIdleTime;
+    
     glutPostRedisplay();
 }
 

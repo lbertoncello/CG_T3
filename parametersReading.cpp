@@ -64,11 +64,11 @@
         {
             if (strcmp(circleAttribute->Name(), "cx") == 0)
             {
-                _circle.setCenter_x(stof(circleAttribute->Value()) - 500);
+                _circle.setCenter_x(stof(circleAttribute->Value()));
             }
             else if (strcmp(circleAttribute->Name(), "cy") == 0)
             {
-                _circle.setCenter_y(stof(circleAttribute->Value()) - 500);
+                _circle.setCenter_y(stof(circleAttribute->Value()));
             }
             else if (strcmp(circleAttribute->Name(), "r") == 0)
             {
@@ -132,19 +132,19 @@
         {
             if (strcmp(lineAttribute->Name(), "x1") == 0)
             {
-                _line.setPoint1_x(stof(lineAttribute->Value()) - 500);
+                _line.setPoint1_x(stof(lineAttribute->Value()));
             }
             else if (strcmp(lineAttribute->Name(), "y1") == 0)
             {
-                _line.setPoint1_y(stof(lineAttribute->Value()) - 500);
+                _line.setPoint1_y(stof(lineAttribute->Value()));
             }
             else if (strcmp(lineAttribute->Name(), "x2") == 0)
             {
-                _line.setPoint2_x(stof(lineAttribute->Value()) - 500);
+                _line.setPoint2_x(stof(lineAttribute->Value()));
             }
             else if (strcmp(lineAttribute->Name(), "y2") == 0)
             {
-                _line.setPoint2_y(stof(lineAttribute->Value()) - 500);
+                _line.setPoint2_y(stof(lineAttribute->Value()));
             }
             else if (strcmp(lineAttribute->Name(), "style") == 0)
             {

@@ -2,6 +2,6 @@
 
 void TerrestrialEnemy::draw()
 {
-    glTranslatef(this->getBody().getCenter_x(), this->getBody().getCenter_y(), 0.0);
+    //glTranslatef(-500 + this->getBody().getCenter_x(), -500 + this->getBody().getCenter_y(), 0.0);
     drawer.drawFilledCircle(this->getBody());
 }
