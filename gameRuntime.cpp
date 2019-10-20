@@ -1,36 +1,44 @@
 #include "gameRuntime.h"
 
-bool* GameRuntime::keyStates = new bool[256];
+bool *GameRuntime::keyStates = new bool[256];
 
 void GameRuntime::keyOperations(void)
 {
-    if (keyStates['w'])
-    { // If the 'a' key has been pressed
-        if (game.isPlayerFlying())
-        {
-            game.movePlayerAirplaneUp();
-        }
-    }
+    // if (keyStates['w'])
+    // { // If the 'a' key has been pressed
+    //     if (game.isPlayerFlying())
+    //     {
+    //         game.movePlayerAirplaneUp();
+    //     }
+    // }
     if (keyStates['a'])
     {
         if (game.isPlayerFlying())
         {
-            game.movePlayerAirplaneLeft();
+            game.turnPlayerAirplaneLeft();
         }
     }
-    if (keyStates['s'])
+    else
     {
-        if (game.isPlayerFlying())
-        {
-            game.movePlayerAirplaneDown();
-        }
+        game.stopPlayerAirplaneTurningLeft();
     }
+    // if (keyStates['s'])
+    // {
+    //     if (game.isPlayerFlying())
+    //     {
+    //         game.movePlayerAirplaneDown();
+    //     }
+    // }
     if (keyStates['d'])
     {
         if (game.isPlayerFlying())
         {
-            game.movePlayerAirplaneRight();
+            game.turnPlayerAirplaneRight();
         }
+    }
+    else
+    {
+        game.stopPlayerAirplaneTurningRight();
     }
     if (keyStates['u'])
     {
@@ -43,18 +51,18 @@ void GameRuntime::keyOperations(void)
 
 void GameRuntime::keyPress(unsigned char key, int x, int y)
 {
-    if (key == 'w')
-    {
-        keyStates[key] = true;
-    }
+    // if (key == 'w')
+    // {
+    //     keyStates[key] = true;
+    // }
     if (key == 'a')
     {
         keyStates[key] = true;
     }
-    if (key == 's')
-    {
-        keyStates[key] = true;
-    }
+    // if (key == 's')
+    // {
+    //     keyStates[key] = true;
+    // }
     if (key == 'd')
     {
         keyStates[key] = true;

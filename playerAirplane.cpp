@@ -141,33 +141,42 @@ void PlayerAirplane::drawCannon()
 
 float PlayerAirplane::calcMovement_x(GLfloat deltaIdleTime)
 {
-    return speed[0] * deltaIdleTime;
+    return speedNorm * deltaIdleTime * cos(moveAngle);
 }
 
 float PlayerAirplane::calcMovement_y(GLfloat deltaIdleTime)
 {
-    return speed[1] * deltaIdleTime;
+    return speedNorm * deltaIdleTime * sin(moveAngle);
 }
 
-void PlayerAirplane::moveUp(GLfloat deltaIdleTime)
+void PlayerAirplane::move(GLfloat deltaIdleTime)
 {
+    updateTurnLeftAngle(deltaIdleTime);
+    updateTurnRightAngle(deltaIdleTime);
+
+    dX += calcMovement_x(deltaIdleTime);
     dY -= calcMovement_y(deltaIdleTime);
 }
 
-void PlayerAirplane::moveDown(GLfloat deltaIdleTime)
-{
-    dY += calcMovement_y(deltaIdleTime);
-}
+// void PlayerAirplane::moveUp(GLfloat deltaIdleTime)
+// {
+//     dY -= calcMovement_y(deltaIdleTime);
+// }
 
-void PlayerAirplane::moveLeft(GLfloat deltaIdleTime)
-{
-    dX -= calcMovement_x(deltaIdleTime);
-}
+// void PlayerAirplane::moveDown(GLfloat deltaIdleTime)
+// {
+//     dY += calcMovement_y(deltaIdleTime);
+// }
 
-void PlayerAirplane::moveRight(GLfloat deltaIdleTime)
-{
-    dX += calcMovement_x(deltaIdleTime);
-}
+// void PlayerAirplane::moveLeft(GLfloat deltaIdleTime)
+// {
+//     dX -= calcMovement_x(deltaIdleTime);
+// }
+
+// void PlayerAirplane::moveRight(GLfloat deltaIdleTime)
+// {
+//     dX += calcMovement_x(deltaIdleTime);
+// }
 
 bool PlayerAirplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, int moveDirection, GLfloat deltaIdleTime)
 {
@@ -230,4 +239,21 @@ Circle PlayerAirplane::getAdjustedBody()
     adjustedBody.setCenter_y(adjustedBody.getCenter_y() + this->dY);
 
     return adjustedBody;
+}
+
+void PlayerAirplane::updateTurnRightAngle(GLfloat deltaIdleTime)
+{
+    if (isTurningRight())
+    {
+        moveAngle -= PI/2 * deltaIdleTime;
+    }
+}
+
+void PlayerAirplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
+{
+    if (isTurningLeft())
+    {
+        moveAngle += PI/2 * deltaIdleTime;
+    }
+    //cout << "virando: " << -PI/2 * deltaIdleTime << endl;
 }

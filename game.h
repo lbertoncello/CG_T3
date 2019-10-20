@@ -104,8 +104,11 @@ public:
     void drawGame(GLfloat deltaIdleTime);
     void movePlayerAirplaneUp();
     void movePlayerAirplaneDown();
-    void movePlayerAirplaneLeft();
-    void movePlayerAirplaneRight();
+    void turnPlayerAirplaneLeft();
+    void turnPlayerAirplaneRight();
+    void stopPlayerAirplaneTurningLeft();
+    void stopPlayerAirplaneTurningRight();
+
 };
 
 #endif
