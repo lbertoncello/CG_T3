@@ -53,6 +53,10 @@ public:
         return id;
     }
 
+    Point getCenter() {
+        return center;
+    }
+
     float getCenter_x()
     {
         return center.getX();

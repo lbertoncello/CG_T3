@@ -18,6 +18,7 @@ class PlayerAirplane
     float initialRadius;
     float dX = 0; //variação em X
     float dY = 0; //variação em Y
+    float inclinationAngle = 0;
     bool flying = false;
     bool takingOff = false;
     bool startPositionInitialized = false;
@@ -32,6 +33,13 @@ class PlayerAirplane
         speed.push_back(0);
         speed.push_back(0);
     }
+
+    void drawMainBody();
+    void drawTail();
+    void drawCockpit();
+    void drawWings();
+    void drawPropeller();
+    void drawCannon();
 
 public:
     PlayerAirplane()
@@ -107,10 +115,16 @@ public:
             startPositionInitialized = true;
         }
 
-        dX = currentPosition.getX() - this->startPosition.getX();
-        dY = currentPosition.getY() - this->startPosition.getY();
+        // dX = currentPosition.getX() - this->startPosition.getX();
+        // dY = currentPosition.getY() - this->startPosition.getY();
+
+        dX = currentPosition.getX();
+        dY = currentPosition.getY();
 
         this->currentPosition = currentPosition;
+
+        //this->currentPosition.setX(currentPosition.getX() - this->startPosition.getX());
+        //this->currentPosition.setY(currentPosition.getY() - this->startPosition.getY());
     }
 
     void setFlying(bool flying)
@@ -136,6 +150,14 @@ public:
         this->speedMultiplier = speedMultiplier;
     }
 
+    void setInclinationAngle(float inclinationAngle) {
+        this->inclinationAngle = inclinationAngle;
+    }
+
+    float getInclinationAngle() {
+        return this->inclinationAngle;
+    }
+
     void draw();
     void moveUp(GLfloat deltaIdleTime);
     //void moveUp(float dY);
@@ -145,11 +167,12 @@ public:
     //void moveLeft(float dX);
     void moveRight(GLfloat deltaIdleTime);
     //void moveRight(float dX);
-    bool checkIntersection(Circle circle, int moveDirection, GLfloat deltaIdleTime);
+    bool checkIntersection(Circle flightAreaBody, Circle enemyBody, int moveDirection, GLfloat deltaIdleTime);
     float calcMovement_x(GLfloat deltaIdleTime);
     float calcMovement_y(GLfloat deltaIdleTime);
     Circle getAdjustedBody();
     bool isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime);
+
 };
 
 #endif

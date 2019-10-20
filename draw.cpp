@@ -27,7 +27,34 @@ void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color
         float x = r * cosf(theta); //calculate the x component
         float y = r * sinf(theta); //calculate the y component
 
-        glVertex2f(x + cx, y + cy); //output vertex
+        //glVertex2f(x + cx, y + cy); //output vertex
+        glVertex2f(x, y); //output vertex
+    }
+    glEnd();
+}
+
+void Draw::drawEllipse(float rx, float ry, Color color, int num_segments)
+{
+    float theta = 2 * 3.1415926 / float(num_segments);
+    float c = cosf(theta); //precalculate the sine and cosine
+    float s = sinf(theta);
+    float t;
+
+    float x = 1; //we start at angle = 0
+    float y = 0;
+
+    glColor3f(color.getR(), color.getG(), color.getB());
+
+    glBegin(GL_TRIANGLE_FAN);
+    for (int ii = 0; ii < num_segments; ii++)
+    {
+        //apply radius and offset
+        glVertex2f(x * rx, y * ry); //output vertex
+
+        //apply the rotation matrix
+        t = x;
+        x = c * x - s * y;
+        y = s * t + c * y;
     }
     glEnd();
 }
@@ -36,6 +63,8 @@ void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
 {
     //filled circle
     float x2, y2;
+    x1 = 0;
+    y1 = 0;
     float angle;
 
     //x1 = 0.5,y1=0.6;
@@ -51,6 +80,50 @@ void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
         glVertex2f(x2, y2);
     }
 
+    glEnd();
+}
+
+void Draw::drawRectangle(Point p1, Point p2)
+{
+    // //glColor3f (red, green, blue);
+    // glBegin(GL_POLYGON);
+    // 	glVertex3f (-width / 2.0, 0, 0.0);
+    // 	glVertex3f (width / 2.0, 0, 0.0);
+    // 	glVertex3f (width / 2.0, height, 0.0);
+    // 	glVertex3f (-width / 2.0, height, 0.0);
+    // glEnd();
+}
+
+void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glBegin(GL_POLYGON);
+    glVertex3f(p1.getX(), p1.getY(), 0.0);
+    glVertex3f(p2.getX(), p2.getY(), 0.0);
+    glVertex3f(p3.getX(), p3.getY(), 0.0);
+    glVertex3f(p4.getX(), p4.getY(), 0.0);
+    glEnd();
+}
+
+void Draw::drawRectangle(float width, float height, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glBegin(GL_QUADS);
+    glVertex3f(-width / 2.0, 0, 0.0);
+    glVertex3f(width / 2.0, 0, 0.0);
+    glVertex3f(width / 2.0, height, 0.0);
+    glVertex3f(-width / 2.0, height, 0.0);
+    glEnd();
+}
+
+void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+
+    glBegin(GL_TRIANGLES);
+    glVertex3f(p1.getX(), p1.getY(), 0.0);
+    glVertex3f(p2.getX(), p2.getY(), 0.0);
+    glVertex3f(p3.getX(), p3.getY(), 0.0);
     glEnd();
 }
 
@@ -81,6 +154,16 @@ bool Draw::checkIntersection(Circle circle)
 void Draw::drawCircle(Circle circle)
 {
     drawCircle(circle.getCenter_x(), circle.getCenter_y(), circle.getRadius(), num_segments, circle.getColor());
+}
+
+void Draw::drawEllipse(Circle circle)
+{
+    drawEllipse(circle.getRadius(), circle.getRadius() / 4, circle.getColor(), num_segments);
+}
+
+void Draw::drawEllipse(float radius, Color color)
+{
+    drawEllipse(radius, radius / 4, color, num_segments);
 }
 
 void Draw::drawCircle(Color color)
@@ -134,18 +217,31 @@ void Draw::drawLine(Line line)
 
     glBegin(GL_LINES);
     glVertex2d(line.getPoint1_x(), line.getPoint1_y());
+    //glVertex2d(0, 0);
     glVertex2d(line.getPoint2_x(), line.getPoint2_y());
+    glEnd();
+}
+
+void Draw::drawLine(Point p1, Point p2, Color color)
+{
+    glColor3f(color.getR(), color.getG(), color.getB());
+    glPointSize(0.5);
+
+    glBegin(GL_LINES);
+    //glVertex2d(line.getPoint1_x(), line.getPoint1_y());
+    glVertex2d(p1.getX(), p1.getY());
+    glVertex2d(p2.getX(), p2.getY());
     glEnd();
 }
 
 void Draw::drawAllLines()
 {
-    for (line_it = lines.begin(); line_it != lines.end(); line_it++) {
+    for (line_it = lines.begin(); line_it != lines.end(); line_it++)
+    {
         drawLine(*line_it);
     }
 }
 
-void Draw::drawGame() 
+void Draw::drawGame()
 {
-
 }

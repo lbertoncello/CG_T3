@@ -7,6 +7,7 @@
 class AirportRunway
 {
     Line body;
+    Line adjustedBody;
     float scalarMiddle;
     Draw drawer;
 
@@ -38,7 +39,14 @@ public:
         this->scalarMiddle = scalarMiddle;
     }
 
+    Line getAdjustedBody() {
+        return this->adjustedBody;
+    }
+    
+    void setAdjustedBody(float coordinateCorrection_x, float coordinateCorrection_y);
+
     void draw();
+    float calcInclinationAngle();
 };
 
 #endif
