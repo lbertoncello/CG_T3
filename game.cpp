@@ -27,6 +27,7 @@ void Game::init()
 {
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
+    playerAirplane.setInclinationAngle(airportRunway.calcInclinationAngle());
 }
 
 void Game::takeOff()

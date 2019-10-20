@@ -18,6 +18,7 @@ class PlayerAirplane
     float initialRadius;
     float dX = 0; //variação em X
     float dY = 0; //variação em Y
+    float inclinationAngle = 0;
     bool flying = false;
     bool takingOff = false;
     bool startPositionInitialized = false;
@@ -149,6 +150,14 @@ public:
         this->speedMultiplier = speedMultiplier;
     }
 
+    void setInclinationAngle(float inclinationAngle) {
+        this->inclinationAngle = inclinationAngle;
+    }
+
+    float getInclinationAngle() {
+        return this->inclinationAngle;
+    }
+
     void draw();
     void moveUp(GLfloat deltaIdleTime);
     //void moveUp(float dY);
@@ -163,6 +172,7 @@ public:
     float calcMovement_y(GLfloat deltaIdleTime);
     Circle getAdjustedBody();
     bool isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime);
+
 };
 
 #endif

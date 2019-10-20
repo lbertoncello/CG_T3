@@ -46,6 +46,7 @@ public:
     void setAdjustedBody(float coordinateCorrection_x, float coordinateCorrection_y);
 
     void draw();
+    float calcInclinationAngle();
 };
 
 #endif
