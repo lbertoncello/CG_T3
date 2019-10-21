@@ -153,6 +153,7 @@ void PlayerAirplane::move(GLfloat deltaIdleTime)
 {
     updateTurnLeftAngle(deltaIdleTime);
     updateTurnRightAngle(deltaIdleTime);
+    updateInclinationAngle(deltaIdleTime);
 
     dX += calcMovement_x(deltaIdleTime);
     dY -= calcMovement_y(deltaIdleTime);
@@ -285,7 +286,22 @@ void PlayerAirplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
     {
         moveAngle += PI / 2 * deltaIdleTime;
     }
-    //cout << "virando: " << -PI/2 * deltaIdleTime << endl;
+}
+
+void PlayerAirplane::updateInclinationAngle(GLfloat deltaIdleTime) {
+    float nextAngle = inclinationAngle;
+
+    if (isTurningLeft())
+    {
+        nextAngle += (PI / 2 * deltaIdleTime);
+    }
+
+    if (isTurningRight())
+    {
+        nextAngle -= (PI / 2 * deltaIdleTime);
+    }
+
+    inclinationAngle = nextAngle;
 }
 
 void PlayerAirplane::reset()

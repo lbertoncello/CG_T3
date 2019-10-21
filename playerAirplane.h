@@ -50,6 +50,7 @@ class PlayerAirplane
     float getNextMoveAngle(GLfloat deltaIdleTime);
     float calcNextMovement_x(GLfloat deltaIdleTime, float nextMoveAngle);
     float calcNextMovement_y(GLfloat deltaIdleTime, float nextMoveAngle);
+    void updateInclinationAngle(GLfloat deltaIdleTime);
 
 public:
     PlayerAirplane()
