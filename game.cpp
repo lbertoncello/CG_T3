@@ -8,7 +8,7 @@ high_resolution_clock::time_point takeOffStartTime;
 high_resolution_clock::time_point sizeIncreaseStartTime;
 vector<float> takeOffAcceleration;
 float sizeIncreaseAcceleration;
-bool beforeAirportRunwayMiddle = true;
+bool beforeAirportRunwayMiddle;
 
 Calc calc;
 
@@ -23,11 +23,18 @@ vector<float> Game::calcTakeOffAcceleration()
     return calc.calcAccelerationRequired(initialPosition, finalPosition, initialSpeed, time);
 }
 
+void Game::reset()
+{
+    playerAirplane.reset();
+    init();
+}
+
 void Game::init()
 {
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     playerAirplane.setInclinationAngle(airportRunway.calcInclinationAngle());
+    beforeAirportRunwayMiddle = true;
 }
 
 void Game::takeOff()

@@ -108,6 +108,7 @@ public:
     void turnPlayerAirplaneRight();
     void stopPlayerAirplaneTurningLeft();
     void stopPlayerAirplaneTurningRight();
+    void reset();
 
 };
 

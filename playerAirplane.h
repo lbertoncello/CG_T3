@@ -215,6 +215,7 @@ public:
     bool isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime);
     Point getNextPosition(GLfloat deltaIdleTime);
     void updateTurningAngles(GLfloat deltaIdleTime);
+    void reset();
 };
 
 #endif

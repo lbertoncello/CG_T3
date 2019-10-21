@@ -47,6 +47,10 @@ void GameRuntime::keyOperations(void)
             game.takeOff();
         }
     }
+    if (keyStates['r'])
+    {
+        game.reset();
+    }
 }
 
 void GameRuntime::keyPress(unsigned char key, int x, int y)
@@ -68,6 +72,10 @@ void GameRuntime::keyPress(unsigned char key, int x, int y)
         keyStates[key] = true;
     }
     if (key == 'u')
+    {
+        keyStates[key] = true;
+    }
+    if (key == 'r')
     {
         keyStates[key] = true;
     }

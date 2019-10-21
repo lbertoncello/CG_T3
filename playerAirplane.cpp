@@ -158,7 +158,8 @@ void PlayerAirplane::move(GLfloat deltaIdleTime)
     dY -= calcMovement_y(deltaIdleTime);
 }
 
-void PlayerAirplane::updateTurningAngles(GLfloat deltaIdleTime) {
+void PlayerAirplane::updateTurningAngles(GLfloat deltaIdleTime)
+{
     updateTurnLeftAngle(deltaIdleTime);
     updateTurnRightAngle(deltaIdleTime);
 }
@@ -285,4 +286,19 @@ void PlayerAirplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
         moveAngle += PI / 2 * deltaIdleTime;
     }
     //cout << "virando: " << -PI/2 * deltaIdleTime << endl;
+}
+
+void PlayerAirplane::reset()
+{
+    body.setRadius(initialRadius);
+    dX = 0; //variação em X
+    dY = 0; //variação em Y
+    inclinationAngle = 0;
+    speedNorm = 0;
+    turningLeft = false;
+    turningRight = false;
+    flying = false;
+    takingOff = false;
+    startPositionInitialized = false;
+    initialRadiusInitialized = false;
 }
