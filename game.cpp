@@ -125,8 +125,14 @@ void Game::drawPlayerAirplane()
         updateTakeOff(currentTime, timeElapsed);
     }
 
-    if(playerAirplane.isFlying()) {
-        playerAirplane.move(deltaIdleTime);
+    if (playerAirplane.isFlying())
+    {
+        if (!checkFlightEnemiesCollision())
+        {
+            playerAirplane.move(deltaIdleTime);
+        } else {
+            playerAirplane.updateTurningAngles(deltaIdleTime);
+        }
     }
 
     //glTranslatef(-flightArea.getArea().getCenter_x() + playerAirplane.getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + playerAirplane.getBody().getCenter_y(), 0.0);
@@ -180,12 +186,12 @@ void Game::drawGame(GLfloat deltaIdleTime)
     glPopMatrix();
 }
 
-bool Game::checkFlightEnemiesCollision(int moveDirection)
+bool Game::checkFlightEnemiesCollision()
 {
     vector<FlightEnemy>::iterator flightEnemy_it;
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
-        if (playerAirplane.checkIntersection(flightArea.getArea(), flightEnemy_it->getBody(), moveDirection, deltaIdleTime))
+        if (playerAirplane.checkIntersection(flightArea.getArea(), flightEnemy_it->getBody(), deltaIdleTime))
         {
             return true;
         }
@@ -269,10 +275,12 @@ void Game::turnPlayerAirplaneRight()
     */
 }
 
-void Game::stopPlayerAirplaneTurningLeft() {
+void Game::stopPlayerAirplaneTurningLeft()
+{
     playerAirplane.setTurningLeft(false);
 }
 
-void Game::stopPlayerAirplaneTurningRight() {
+void Game::stopPlayerAirplaneTurningRight()
+{
     playerAirplane.setTurningRight(false);
 }

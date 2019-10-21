@@ -47,6 +47,9 @@ class PlayerAirplane
     void drawCannon();
     void updateTurnRightAngle(GLfloat deltaIdleTime);
     void updateTurnLeftAngle(GLfloat deltaIdleTime);
+    float getNextMoveAngle(GLfloat deltaIdleTime);
+    float calcNextMovement_x(GLfloat deltaIdleTime, float nextMoveAngle);
+    float calcNextMovement_y(GLfloat deltaIdleTime, float nextMoveAngle);
 
 public:
     PlayerAirplane()
@@ -158,7 +161,7 @@ public:
     {
         //float speedNorm = calc.norm(speed) * this->speedMultiplier;
         speedNorm = calc.norm(speed) * this->speedMultiplier;
-        moveAngle = PI/4;
+        moveAngle = PI / 4;
 
         this->speed[0] = (speedNorm * cos(45.0 * 3.14159265 / 180));
         this->speed[1] = (speedNorm * sin(45.0 * 3.14159265 / 180));
@@ -182,11 +185,21 @@ public:
     void setTurningLeft(bool turningLeft)
     {
         this->turningLeft = turningLeft;
+
+        // if (turningLeft == false && turningRight == false)
+        // {
+        //     moveAngle = PI / 4;
+        // }
     }
 
     void setTurningRight(bool turningRight)
     {
         this->turningRight = turningRight;
+
+        // if (turningLeft == false && turningRight == false)
+        // {
+        //     moveAngle = PI / 4;
+        // }
     }
 
     void draw();
@@ -195,11 +208,13 @@ public:
     // void moveDown(GLfloat deltaIdleTime);
     // void moveLeft(GLfloat deltaIdleTime);
     // void moveRight(GLfloat deltaIdleTime);
-    bool checkIntersection(Circle flightAreaBody, Circle enemyBody, int moveDirection, GLfloat deltaIdleTime);
+    bool checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime);
     float calcMovement_x(GLfloat deltaIdleTime);
     float calcMovement_y(GLfloat deltaIdleTime);
     Circle getAdjustedBody();
     bool isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime);
+    Point getNextPosition(GLfloat deltaIdleTime);
+    void updateTurningAngles(GLfloat deltaIdleTime);
 };
 
 #endif

@@ -38,7 +38,7 @@ class Game
     void drawAirportRunway();
     void drawFlightEnemies();
     void drawTerrestrialEnemies();
-    bool checkFlightEnemiesCollision(int moveDirection);
+    bool checkFlightEnemiesCollision();
     bool isPlayerAirplaneInsideFlightArea(int moveDirection);
 
 public:
