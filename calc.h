@@ -25,6 +25,7 @@ public:
     float euclideanDistance(Point point1, Point point2);
     float norm(vector<float> v);
     vector<float> zerosVector(int numOfDimensions);
+    float radiansToDegrees(float radians);
 };
 
 #endif

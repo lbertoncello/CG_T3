@@ -27,6 +27,7 @@ class Game
     vector<FlightEnemy> flightEnemies;
     vector<TerrestrialEnemy> terrestrialEnemies;
     GLfloat deltaIdleTime;
+    bool gameOver;
 
     void updateTakeOff(high_resolution_clock::time_point currentTime, float takeOffTimeElapsed);
     vector<float> calcTakeOffAcceleration();

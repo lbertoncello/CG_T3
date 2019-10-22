@@ -15,14 +15,9 @@ void AirportRunway::draw()
     drawer.drawLine(this->adjustedBody);
 }
 
-float radiansToDegrees(float radians)
-{
-    return radians * (180.0 / 3.141592653589793238463);
-}
-
 float AirportRunway::calcInclinationAngle()
 {
-    return radiansToDegrees(
+    return calc.radiansToDegrees(
         atan2f(
             body.getPoint2_y() - body.getPoint1_y(),
             body.getPoint2_x() - body.getPoint1_x()));

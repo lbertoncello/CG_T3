@@ -35,16 +35,20 @@ void Game::init()
     playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     playerAirplane.setInclinationAngle(airportRunway.calcInclinationAngle());
     beforeAirportRunwayMiddle = true;
+    gameOver = false;
 }
 
 void Game::takeOff()
 {
-    playerAirplane.setTakingOff(true);
-    playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
-    takeOffAcceleration = calcTakeOffAcceleration();
-    sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
-    takeOffStartTime = std::chrono::high_resolution_clock::now();
-    playerAirplane.setSpeed(calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME));
+    if (!gameOver)
+    {
+        playerAirplane.setTakingOff(true);
+        playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
+        takeOffAcceleration = calcTakeOffAcceleration();
+        sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
+        takeOffStartTime = std::chrono::high_resolution_clock::now();
+        playerAirplane.setSpeed(calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME));
+    }
 }
 
 Point Game::currentTakeOffPosition(float time)
@@ -137,12 +141,16 @@ void Game::drawPlayerAirplane()
         if (!checkFlightEnemiesCollision())
         {
             playerAirplane.move(deltaIdleTime);
-        } else {
-            playerAirplane.updateTurningAngles(deltaIdleTime);
+        }
+        else
+        {
+            // playerAirplane.updateTurningAngles(deltaIdleTime);
+            gameOver = true;
         }
     }
 
     //glTranslatef(-flightArea.getArea().getCenter_x() + playerAirplane.getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + playerAirplane.getBody().getCenter_y(), 0.0);
+
     playerAirplane.draw();
     glPopMatrix();
 }
@@ -251,7 +259,10 @@ void Game::turnPlayerAirplaneLeft()
     // {
     //     playerAirplane.turnLeft(deltaIdleTime);
     // }
-    playerAirplane.setTurningLeft(true);
+    if (!gameOver)
+    {
+        playerAirplane.setTurningLeft(true);
+    }
 
     /*
     else
@@ -270,7 +281,10 @@ void Game::turnPlayerAirplaneRight()
     // {
     //     playerAirplane.turnRight(deltaIdleTime);
     // }
-    playerAirplane.setTurningRight(true);
+    if (!gameOver)
+    {
+        playerAirplane.setTurningRight(true);
+    }
     /*
     else
     {
@@ -284,10 +298,16 @@ void Game::turnPlayerAirplaneRight()
 
 void Game::stopPlayerAirplaneTurningLeft()
 {
-    playerAirplane.setTurningLeft(false);
+    if (!gameOver)
+    {
+        playerAirplane.setTurningLeft(false);
+    }
 }
 
 void Game::stopPlayerAirplaneTurningRight()
 {
-    playerAirplane.setTurningRight(false);
+    if (!gameOver)
+    {
+        playerAirplane.setTurningRight(false);
+    }
 }

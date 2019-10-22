@@ -162,7 +162,7 @@ public:
     {
         //float speedNorm = calc.norm(speed) * this->speedMultiplier;
         speedNorm = calc.norm(speed) * this->speedMultiplier;
-        moveAngle = PI / 4;
+        moveAngle = -atan2f(speed[1], speed[0]);
 
         this->speed[0] = (speedNorm * cos(45.0 * 3.14159265 / 180));
         this->speed[1] = (speedNorm * sin(45.0 * 3.14159265 / 180));

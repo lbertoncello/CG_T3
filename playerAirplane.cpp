@@ -186,26 +186,6 @@ Point PlayerAirplane::getNextPosition(GLfloat deltaIdleTime)
     return nextPosition;
 }
 
-// void PlayerAirplane::moveUp(GLfloat deltaIdleTime)
-// {
-//     dY -= calcMovement_y(deltaIdleTime);
-// }
-
-// void PlayerAirplane::moveDown(GLfloat deltaIdleTime)
-// {
-//     dY += calcMovement_y(deltaIdleTime);
-// }
-
-// void PlayerAirplane::moveLeft(GLfloat deltaIdleTime)
-// {
-//     dX -= calcMovement_x(deltaIdleTime);
-// }
-
-// void PlayerAirplane::moveRight(GLfloat deltaIdleTime)
-// {
-//     dX += calcMovement_x(deltaIdleTime);
-// }
-
 bool PlayerAirplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime)
 {
     Circle adjustedBody = Circle(this->getNextPosition(deltaIdleTime), this->body.getRadius());
@@ -293,12 +273,12 @@ void PlayerAirplane::updateInclinationAngle(GLfloat deltaIdleTime) {
 
     if (isTurningLeft())
     {
-        nextAngle += (PI / 2 * deltaIdleTime);
+        nextAngle -= (90 * deltaIdleTime);
     }
 
     if (isTurningRight())
     {
-        nextAngle -= (PI / 2 * deltaIdleTime);
+        nextAngle += (90 * deltaIdleTime);
     }
 
     inclinationAngle = nextAngle;
