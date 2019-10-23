@@ -40,7 +40,7 @@ class Game
     void drawFlightEnemies();
     void drawTerrestrialEnemies();
     bool checkFlightEnemiesCollision();
-    bool isPlayerAirplaneInsideFlightArea(int moveDirection);
+    bool isPlayerAirplaneInsideFlightArea();
 
 public:
     Game() {}

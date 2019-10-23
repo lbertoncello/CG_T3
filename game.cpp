@@ -137,7 +137,16 @@ void Game::drawPlayerAirplane()
     {
         if (!checkFlightEnemiesCollision())
         {
-            playerAirplane.move(deltaIdleTime);
+            if (isPlayerAirplaneInsideFlightArea())
+            {
+                playerAirplane.move(deltaIdleTime);
+            }
+            else
+            {
+                // cout << "outside" << endl;
+                playerAirplane.teleport();
+                playerAirplane.move(deltaIdleTime);
+            }
         }
         else
         {
@@ -211,7 +220,8 @@ bool Game::checkFlightEnemiesCollision()
     return false;
 }
 
-bool Game::isPlayerAirplaneInsideFlightArea(int moveDirection)
+bool Game::isPlayerAirplaneInsideFlightArea()
 {
-    return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
+    // return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
+    return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }

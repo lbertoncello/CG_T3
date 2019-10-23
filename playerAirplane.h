@@ -242,6 +242,8 @@ public:
     void decrementSpeed();
     void decrementSpeed(float speedIncrement);
     void reset();
+    void teleport();
+    Point getCurrentPositionAdjusted();
 };
 
 #endif
