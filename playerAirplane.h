@@ -21,6 +21,7 @@ class PlayerAirplane
     float dY = 0; //variação em Y
     float inclinationAngle = 0;
     float speedNorm = 0;
+    float speedIncrement = 5;
     bool turningLeft = false;
     bool turningRight = false;
     bool flying = false;
@@ -116,6 +117,16 @@ public:
         return speedMultiplier;
     }
 
+    float getSpeedNorm()
+    {
+        return speedNorm;
+    }
+
+    float getSpeedIncrement()
+    {
+        return speedIncrement;
+    }
+
     void setBody(Circle body)
     {
         this->body = body;
@@ -168,6 +179,11 @@ public:
         this->speed[1] = (speedNorm * sin(45.0 * 3.14159265 / 180));
     }
 
+    void setSpeedNorm(float speedNorm)
+    {
+        this->speedNorm = speedNorm;
+    }
+
     void setSpeedMultiplier(float speedMultiplier)
     {
         this->speedMultiplier = speedMultiplier;
@@ -203,6 +219,11 @@ public:
         // }
     }
 
+    void setSpeedIncrement(float speedIncrement)
+    {
+        this->speedIncrement = speedIncrement;
+    }
+
     void draw();
     void move(GLfloat deltaIdleTime);
     // void moveUp(GLfloat deltaIdleTime);
@@ -216,6 +237,10 @@ public:
     bool isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime);
     Point getNextPosition(GLfloat deltaIdleTime);
     void updateTurningAngles(GLfloat deltaIdleTime);
+    void incrementSpeed();
+    void incrementSpeed(float speedIncrement);
+    void decrementSpeed();
+    void decrementSpeed(float speedIncrement);
     void reset();
 };
 

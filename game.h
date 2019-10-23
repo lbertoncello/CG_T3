@@ -60,6 +60,10 @@ public:
         return playerAirplane;
     }
 
+    bool isGameOver() {
+        return this->gameOver;
+    }
+
     void setFlightArea(FlightArea flightArea)
     {
         this->flightArea = flightArea;
@@ -103,12 +107,6 @@ public:
     void takeOff();
     void init();
     void drawGame(GLfloat deltaIdleTime);
-    void movePlayerAirplaneUp();
-    void movePlayerAirplaneDown();
-    void turnPlayerAirplaneLeft();
-    void turnPlayerAirplaneRight();
-    void stopPlayerAirplaneTurningLeft();
-    void stopPlayerAirplaneTurningRight();
     void reset();
 
 };

@@ -268,7 +268,8 @@ void PlayerAirplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
     }
 }
 
-void PlayerAirplane::updateInclinationAngle(GLfloat deltaIdleTime) {
+void PlayerAirplane::updateInclinationAngle(GLfloat deltaIdleTime)
+{
     float nextAngle = inclinationAngle;
 
     if (isTurningLeft())
@@ -297,4 +298,34 @@ void PlayerAirplane::reset()
     takingOff = false;
     startPositionInitialized = false;
     initialRadiusInitialized = false;
+}
+
+void PlayerAirplane::incrementSpeed()
+{
+    speedNorm += speedIncrement;
+}
+
+void PlayerAirplane::incrementSpeed(float speedIncrement)
+{
+    speedNorm += speedIncrement;
+}
+
+void PlayerAirplane::decrementSpeed()
+{
+    speedNorm -= speedIncrement;
+
+    if (speedNorm < 0)
+    {
+        speedNorm = 0;
+    }
+}
+
+void PlayerAirplane::decrementSpeed(float speedIncrement)
+{
+    speedNorm -= speedIncrement;
+
+    if (speedNorm < 0)
+    {
+        speedNorm = 0;
+    }
 }

@@ -4,49 +4,54 @@ bool *GameRuntime::keyStates = new bool[256];
 
 void GameRuntime::keyOperations(void)
 {
-    // if (keyStates['w'])
-    // { // If the 'a' key has been pressed
-    //     if (game.isPlayerFlying())
-    //     {
-    //         game.movePlayerAirplaneUp();
-    //     }
-    // }
-    if (keyStates['a'])
+    if (!game.isGameOver())
     {
-        if (game.isPlayerFlying())
+        if (keyStates['a'])
         {
-            game.turnPlayerAirplaneLeft();
+            if (game.isPlayerFlying())
+            {
+                game.getPlayerAirplane().setTurningLeft(true);
+            }
+        }
+        else
+        {
+            game.getPlayerAirplane().setTurningLeft(false);
+        }
+
+        if (keyStates['d'])
+        {
+            if (game.isPlayerFlying())
+            {
+                game.getPlayerAirplane().setTurningRight(true);
+            }
+        }
+        else
+        {
+            game.getPlayerAirplane().setTurningRight(false);
+        }
+        if (keyStates['u'])
+        {
+            if (game.isPlayerFlying() == false && game.isPlayerTakingOff() == false)
+            {
+                game.takeOff();
+            }
+        }
+        if (keyStates['+'])
+        {
+            if (game.isPlayerFlying())
+            {
+                game.getPlayerAirplane().incrementSpeed();
+            }
+        }
+        if (keyStates['-'])
+        {
+            if (game.isPlayerFlying())
+            {
+                game.getPlayerAirplane().decrementSpeed();
+            }
         }
     }
-    else
-    {
-        game.stopPlayerAirplaneTurningLeft();
-    }
-    // if (keyStates['s'])
-    // {
-    //     if (game.isPlayerFlying())
-    //     {
-    //         game.movePlayerAirplaneDown();
-    //     }
-    // }
-    if (keyStates['d'])
-    {
-        if (game.isPlayerFlying())
-        {
-            game.turnPlayerAirplaneRight();
-        }
-    }
-    else
-    {
-        game.stopPlayerAirplaneTurningRight();
-    }
-    if (keyStates['u'])
-    {
-        if (game.isPlayerFlying() == false && game.isPlayerTakingOff() == false)
-        {
-            game.takeOff();
-        }
-    }
+
     if (keyStates['r'])
     {
         game.reset();
@@ -55,18 +60,10 @@ void GameRuntime::keyOperations(void)
 
 void GameRuntime::keyPress(unsigned char key, int x, int y)
 {
-    // if (key == 'w')
-    // {
-    //     keyStates[key] = true;
-    // }
     if (key == 'a')
     {
         keyStates[key] = true;
     }
-    // if (key == 's')
-    // {
-    //     keyStates[key] = true;
-    // }
     if (key == 'd')
     {
         keyStates[key] = true;
@@ -76,6 +73,14 @@ void GameRuntime::keyPress(unsigned char key, int x, int y)
         keyStates[key] = true;
     }
     if (key == 'r')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '+')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '-')
     {
         keyStates[key] = true;
     }
