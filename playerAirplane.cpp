@@ -334,8 +334,6 @@ void PlayerAirplane::teleport()
 {
     // float adjustX = 500 + this->startPosition.getX();
     // float adjustY = 500 + this->startPosition.getY();
-    cout << "Dx: " << dX << endl;
-    cout << "Dy: " << dY << endl;
 
     float x = dX ;
     float y = dY ;
@@ -349,9 +347,6 @@ void PlayerAirplane::teleport()
 
     this->dX = (x * cos(theta)) - (y * sin(theta)) ;
     this->dY = (x * sin(theta)) + (y * cos(theta)) ;
-
-    cout << "ax: " << dX << endl;
-    cout << "ay " << dY << endl;
 
     // aviao->setX((x * cos(theta)) - (y * sin(theta)));
     // aviao->setY((x * sin(theta)) + (y * cos(theta)));
