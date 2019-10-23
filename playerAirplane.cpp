@@ -341,7 +341,7 @@ void PlayerAirplane::teleport()
     float y = dY ;
 
     float alpha = atan2(y, x) * 180 / M_PI;
-    float beta = (this->inclinationAngle - M_PI / 2) * 180 / M_PI;
+    float beta = (calc.degreesToRadians(this->inclinationAngle) - M_PI / 2) * 180 / M_PI;
     float theta = (-2 * (alpha - beta)) * M_PI / 180;
 
     // float alpha = atan2(y, x) * 180 / M_PI;

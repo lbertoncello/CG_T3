@@ -26,6 +26,7 @@ public:
     float norm(vector<float> v);
     vector<float> zerosVector(int numOfDimensions);
     float radiansToDegrees(float radians);
+    float degreesToRadians(float degrees);
 };
 
 #endif

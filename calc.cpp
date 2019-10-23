@@ -107,3 +107,7 @@ vector<float> Calc::zerosVector(int numOfDimensions)
 
     return zeros;
 }
+
+    float Calc::degreesToRadians(float degrees) {
+        return 2*M_PI * (degrees / 360);
+    }
