@@ -27,6 +27,7 @@ class Game
     vector<FlightEnemy> flightEnemies;
     vector<TerrestrialEnemy> terrestrialEnemies;
     GLfloat deltaIdleTime;
+    bool gameOver;
 
     void updateTakeOff(high_resolution_clock::time_point currentTime, float takeOffTimeElapsed);
     vector<float> calcTakeOffAcceleration();
@@ -38,8 +39,8 @@ class Game
     void drawAirportRunway();
     void drawFlightEnemies();
     void drawTerrestrialEnemies();
-    bool checkFlightEnemiesCollision(int moveDirection);
-    bool isPlayerAirplaneInsideFlightArea(int moveDirection);
+    bool checkFlightEnemiesCollision();
+    bool isPlayerAirplaneInsideFlightArea();
 
 public:
     Game() {}
@@ -57,6 +58,10 @@ public:
     PlayerAirplane &getPlayerAirplane()
     {
         return playerAirplane;
+    }
+
+    bool isGameOver() {
+        return this->gameOver;
     }
 
     void setFlightArea(FlightArea flightArea)
@@ -102,10 +107,8 @@ public:
     void takeOff();
     void init();
     void drawGame(GLfloat deltaIdleTime);
-    void movePlayerAirplaneUp();
-    void movePlayerAirplaneDown();
-    void movePlayerAirplaneLeft();
-    void movePlayerAirplaneRight();
+    void reset();
+    void rotatePlayerAirplaneCannon(float moviment);
 };
 
 #endif

@@ -91,6 +91,11 @@ float Calc::calcInitialSpeedRequired(float finalSpeed, float acceleration, float
     return sqrt(pow(finalSpeed, 2) - 2 * acceleration * (finalPosition - initialPosition));
 }
 
+float Calc::radiansToDegrees(float radians)
+{
+    return radians * (180.0 / 3.141592653589793238463);
+}
+
 vector<float> Calc::zerosVector(int numOfDimensions)
 {
     vector<float> zeros;
@@ -102,3 +107,7 @@ vector<float> Calc::zerosVector(int numOfDimensions)
 
     return zeros;
 }
+
+    float Calc::degreesToRadians(float degrees) {
+        return 2*M_PI * (degrees / 360);
+    }

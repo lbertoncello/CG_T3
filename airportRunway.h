@@ -3,6 +3,7 @@
 
 #include "line.h"
 #include "draw.h"
+#include "calc.h"
 
 class AirportRunway
 {
@@ -10,6 +11,7 @@ class AirportRunway
     Line adjustedBody;
     float scalarMiddle;
     Draw drawer;
+    Calc calc;
 
 public:
     AirportRunway() {}

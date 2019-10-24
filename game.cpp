@@ -8,7 +8,7 @@ high_resolution_clock::time_point takeOffStartTime;
 high_resolution_clock::time_point sizeIncreaseStartTime;
 vector<float> takeOffAcceleration;
 float sizeIncreaseAcceleration;
-bool beforeAirportRunwayMiddle = true;
+bool beforeAirportRunwayMiddle;
 
 Calc calc;
 
@@ -23,11 +23,19 @@ vector<float> Game::calcTakeOffAcceleration()
     return calc.calcAccelerationRequired(initialPosition, finalPosition, initialSpeed, time);
 }
 
+void Game::reset()
+{
+    playerAirplane.reset();
+    init();
+}
+
 void Game::init()
 {
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     playerAirplane.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     playerAirplane.setInclinationAngle(airportRunway.calcInclinationAngle());
+    beforeAirportRunwayMiddle = true;
+    gameOver = false;
 }
 
 void Game::takeOff()
@@ -125,7 +133,29 @@ void Game::drawPlayerAirplane()
         updateTakeOff(currentTime, timeElapsed);
     }
 
+    if (playerAirplane.isFlying())
+    {
+        if (!checkFlightEnemiesCollision())
+        {
+            if (isPlayerAirplaneInsideFlightArea())
+            {
+                playerAirplane.move(deltaIdleTime);
+            }
+            else
+            {
+                // cout << "outside" << endl;
+                playerAirplane.teleport();
+                playerAirplane.move(deltaIdleTime);
+            }
+        }
+        else
+        {
+            gameOver = true;
+        }
+    }
+
     //glTranslatef(-flightArea.getArea().getCenter_x() + playerAirplane.getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + playerAirplane.getBody().getCenter_y(), 0.0);
+
     playerAirplane.draw();
     glPopMatrix();
 }
@@ -176,12 +206,12 @@ void Game::drawGame(GLfloat deltaIdleTime)
     glPopMatrix();
 }
 
-bool Game::checkFlightEnemiesCollision(int moveDirection)
+bool Game::checkFlightEnemiesCollision()
 {
     vector<FlightEnemy>::iterator flightEnemy_it;
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
-        if (playerAirplane.checkIntersection(flightArea.getArea(), flightEnemy_it->getBody(), moveDirection, deltaIdleTime))
+        if (playerAirplane.checkIntersection(flightArea.getArea(), flightEnemy_it->getBody(), deltaIdleTime))
         {
             return true;
         }
@@ -190,72 +220,12 @@ bool Game::checkFlightEnemiesCollision(int moveDirection)
     return false;
 }
 
-bool Game::isPlayerAirplaneInsideFlightArea(int moveDirection)
+bool Game::isPlayerAirplaneInsideFlightArea()
 {
-    return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
+    // return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
+    return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }
 
-void Game::movePlayerAirplaneUp()
-{
-    if (checkFlightEnemiesCollision(MOVE_UP) == false && isPlayerAirplaneInsideFlightArea(MOVE_UP))
-    {
-        playerAirplane.moveUp(deltaIdleTime);
-    }
-    /*
-    else
-    {
-        if (isPlayerAirplaneInsideFlightArea(MOVE_DOWN))
-        {
-            playerAirplane.moveDown();
-        }
-    }
-    */
-}
-
-void Game::movePlayerAirplaneDown()
-{
-    if (checkFlightEnemiesCollision(MOVE_DOWN) == false && isPlayerAirplaneInsideFlightArea(MOVE_DOWN))
-    {
-        playerAirplane.moveDown(deltaIdleTime);
-    } /*
-    else
-    {
-        if (isPlayerAirplaneInsideFlightArea(MOVE_UP))
-        {
-            playerAirplane.moveUp();
-        }
-    }
-    */
-}
-
-void Game::movePlayerAirplaneLeft()
-{
-    if (checkFlightEnemiesCollision(MOVE_LEFT) == false && isPlayerAirplaneInsideFlightArea(MOVE_LEFT))
-    {
-        playerAirplane.moveLeft(deltaIdleTime);
-    } /*
-    else
-    {
-        if (isPlayerAirplaneInsideFlightArea(MOVE_RIGHT))
-        {
-            playerAirplane.moveRight();
-        }
-    }
-    */
-}
-
-void Game::movePlayerAirplaneRight()
-{
-    if (checkFlightEnemiesCollision(MOVE_RIGHT) == false && isPlayerAirplaneInsideFlightArea(MOVE_RIGHT))
-    {
-        playerAirplane.moveRight(deltaIdleTime);
-    } /*
-    else
-    {
-        if (isPlayerAirplaneInsideFlightArea(MOVE_LEFT))
-        {
-            playerAirplane.moveLeft();
-        }
-    }
-    */
+void Game::rotatePlayerAirplaneCannon(float moviment) {
+    this->playerAirplane.rotateCannon(moviment, deltaIdleTime);
 }

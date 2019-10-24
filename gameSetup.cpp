@@ -19,7 +19,7 @@ void GameSetup::idle(void)
     currentIdleTime = glutGet(GLUT_ELAPSED_TIME);
     deltaIdleTime = (currentIdleTime - lastIdleTime) / 1000;
     lastIdleTime = currentIdleTime;
-    
+
     glutPostRedisplay();
 }
 
