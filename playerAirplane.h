@@ -33,6 +33,7 @@ class PlayerAirplane
     float moveAngle;
     float speedMultiplier;
     Calc calc;
+    float cannonAngle = 0.0;
 
     void speedInit()
     {
@@ -244,6 +245,7 @@ public:
     void reset();
     void teleport();
     Point getCurrentPositionAdjusted();
+    void rotateCannon(float moviment, float deltaIdleTime);
 };
 
 #endif

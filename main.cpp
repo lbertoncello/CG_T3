@@ -11,14 +11,29 @@
 using namespace std;
 
 const string CONFIG_BASE_FILENAME = "/config.xml";
-GameSetup* gameSetup = new GameSetup();
+GameSetup *gameSetup = new GameSetup();
 
-void gameSetupDisplayFunctionWrapper(void) {
+void gameSetupDisplayFunctionWrapper(void)
+{
     gameSetup->display();
 }
 
-void gameSetupIdleFunctionWrapper(void) {
+void gameSetupIdleFunctionWrapper(void)
+{
     gameSetup->idle();
+}
+
+void gameRuntimeMouseFunctionWrapper(int button, int state, int x, int y)
+{
+    gameSetup->getGameRuntime().mouse(button, state, x, y);
+}
+
+void gameRuntimeMotionFunctionWrapper(int x, int y) {
+    gameSetup->getGameRuntime().motion(x, y);
+}
+
+void gameRuntimePassiveMotionFunctionWrapper(int x, int y) {
+    gameSetup->getGameRuntime().passiveMotion(x, y);
 }
 
 int main(int argc, char **argv)
@@ -43,6 +58,10 @@ int main(int argc, char **argv)
 
                 glutKeyboardFunc(gameSetup->getGameRuntime().keyPress);
                 glutKeyboardUpFunc(gameSetup->getGameRuntime().keyUp);
+
+                glutMouseFunc(gameRuntimeMouseFunctionWrapper);
+                glutMotionFunc(gameRuntimePassiveMotionFunctionWrapper);
+                glutPassiveMotionFunc(gameRuntimePassiveMotionFunctionWrapper);
 
                 glutIdleFunc(gameSetupIdleFunctionWrapper);
                 glutMainLoop();

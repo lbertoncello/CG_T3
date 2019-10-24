@@ -90,3 +90,58 @@ void GameRuntime::keyUp(unsigned char key, int x, int y)
 {
     keyStates[key] = false; // Set the state of the current key to not pressed
 }
+
+void GameRuntime::mouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON)
+    {
+        if (state == GLUT_UP)
+        {
+        }
+        else
+        {
+        }
+    }
+
+    if (button == GLUT_RIGHT_BUTTON)
+    {
+        if (state == GLUT_UP)
+        {
+        }
+        else
+        {
+        }
+    }
+}
+
+void GameRuntime::motion(int x, int y)
+{
+    if (!game.isGameOver())
+    {
+        if (game.isPlayerFlying())
+        {
+            game.rotatePlayerAirplaneCannon(x - previousX);
+            previousX = x;
+        }
+    }
+
+    if (isLeftMouseButtonPressed)
+    {
+    }
+
+    if (isRightMouseButtonPressed)
+    {
+    }
+}
+
+void GameRuntime::passiveMotion(int x, int y)
+{
+    if (!game.isGameOver())
+    {
+        if (game.isPlayerFlying())
+        {
+            game.rotatePlayerAirplaneCannon(x - previousX);
+            previousX = x;
+        }
+    }
+}

@@ -27,7 +27,8 @@ private:
 public:
     GameSetup() {}
 
-    GameRuntime& getGameRuntime() {
+    GameRuntime &getGameRuntime()
+    {
         return this->gameRuntime;
     }
 

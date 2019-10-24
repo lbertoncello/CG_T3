@@ -133,7 +133,7 @@ void PlayerAirplane::drawCannon()
     Color color(0.0, 0.0, 0.0);
 
     glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
-    glRotatef(-90, 0.0, 0.0, 1.0);
+    glRotatef(-90 + calc.radiansToDegrees(cannonAngle), 0.0, 0.0, 1.0);
     drawer.drawRectangle(this->body.getRadius() / 5, this->body.getRadius() / 2, color);
 
     glPopMatrix();
@@ -298,6 +298,7 @@ void PlayerAirplane::reset()
     takingOff = false;
     startPositionInitialized = false;
     initialRadiusInitialized = false;
+    cannonAngle = 0.0;
 }
 
 void PlayerAirplane::incrementSpeed()
@@ -335,8 +336,8 @@ void PlayerAirplane::teleport()
     // float adjustX = 500 + this->startPosition.getX();
     // float adjustY = 500 + this->startPosition.getY();
 
-    float x = dX ;
-    float y = dY ;
+    float x = dX;
+    float y = dY;
 
     float alpha = atan2(y, x) * 180 / M_PI;
     float beta = (calc.degreesToRadians(this->inclinationAngle) - M_PI / 2) * 180 / M_PI;
@@ -345,8 +346,8 @@ void PlayerAirplane::teleport()
     // float alpha = atan2(y, x) * 180 / M_PI;
     // float theta = (-2 * (alpha - this->inclinationAngle)) * M_PI / 180;
 
-    this->dX = (x * cos(theta)) - (y * sin(theta)) ;
-    this->dY = (x * sin(theta)) + (y * cos(theta)) ;
+    this->dX = (x * cos(theta)) - (y * sin(theta));
+    this->dY = (x * sin(theta)) + (y * cos(theta));
 
     // aviao->setX((x * cos(theta)) - (y * sin(theta)));
     // aviao->setY((x * sin(theta)) + (y * cos(theta)));
@@ -367,4 +368,18 @@ Point PlayerAirplane::getCurrentPositionAdjusted()
     // cout << "y: " << currentPosition.getY() << endl;
 
     return currentPositionAdjusted;
+}
+
+void PlayerAirplane::rotateCannon(float moviment, float deltaIdleTime)
+{
+    cannonAngle += PI / 2 * moviment / 10 * deltaIdleTime;
+
+    if (cannonAngle > PI / 4)
+    {
+        cannonAngle = PI / 4;
+    }
+    else if (cannonAngle < -PI / 4)
+    {
+        cannonAngle = - PI / 4;
+    }
 }

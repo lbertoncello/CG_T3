@@ -22,79 +22,97 @@ private:
 
     Color backgroundColor;
 
-    bool isLeftMouseButtonPressed = false;
-    bool isRightMouseButtonPressed = false;
-
     Game game;
 
     static bool *keyStates;
+    bool isLeftMouseButtonPressed = false;
+    bool isRightMouseButtonPressed = false;
+    float previousX = 0;
 
 public:
     GameRuntime() {}
 
-    Game& getGame() {
+    Game &getGame()
+    {
         return this->game;
     }
 
-    Color& getBackgroundColor() {
+    Color &getBackgroundColor()
+    {
         return this->backgroundColor;
     }
 
-    float getPlayerAirplaneSpeedMult() {
+    float getPlayerAirplaneSpeedMult()
+    {
         return this->playerAirplaneSpeedMult;
     }
 
-    float getBulletSpeedMult() {
+    float getBulletSpeedMult()
+    {
         return this->bulletSpeedMult;
     }
 
-    string getWindowTitle() {
+    string getWindowTitle()
+    {
         return this->windowTitle;
     }
 
-    int getWindowSize_x() {
+    int getWindowSize_x()
+    {
         return this->windowSize_x;
     }
 
-    int getWindowSize_y() {
+    int getWindowSize_y()
+    {
         return this->windowSize_y;
     }
 
-    int getWindowInitial_x_position() {
+    int getWindowInitial_x_position()
+    {
         return this->windowInitial_x_position;
     }
 
-    int getWindowInitial_y_position() {
+    int getWindowInitial_y_position()
+    {
         return this->windowInitial_y_position;
     }
 
-    void setPlayerAirplaneSpeedMult(float playerAirplaneSpeedMult) {
+    void setPlayerAirplaneSpeedMult(float playerAirplaneSpeedMult)
+    {
         this->playerAirplaneSpeedMult = playerAirplaneSpeedMult;
     }
 
-    void setBulletSpeedMult(float bulletSpeedMult) {
+    void setBulletSpeedMult(float bulletSpeedMult)
+    {
         this->bulletSpeedMult = bulletSpeedMult;
     }
 
-    void setWindowTitle(string windowTitle) {
+    void setWindowTitle(string windowTitle)
+    {
         this->windowTitle = windowTitle;
     }
 
-    void setWindowsSize_x(int windowSize_x ) {
+    void setWindowsSize_x(int windowSize_x)
+    {
         this->windowSize_x = windowSize_x;
     }
 
-    void setWindowsSize_y(int windowSize_y ) {
+    void setWindowsSize_y(int windowSize_y)
+    {
         this->windowSize_y = windowSize_y;
     }
 
-    void setBackgroundColor(Color backgroundColor) {
+    void setBackgroundColor(Color backgroundColor)
+    {
         this->backgroundColor = backgroundColor;
     }
 
     void keyOperations(void);
     static void keyPress(unsigned char key, int x, int y);
     static void keyUp(unsigned char key, int x, int y);
+    void mouse(int button, int state, int x, int y);
+    void motion(int x, int y);
+    void passiveMotion(int x, int y);
 };
 
 #endif

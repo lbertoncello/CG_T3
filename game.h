@@ -108,7 +108,7 @@ public:
     void init();
     void drawGame(GLfloat deltaIdleTime);
     void reset();
-
+    void rotatePlayerAirplaneCannon(float moviment);
 };
 
 #endif

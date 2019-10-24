@@ -225,3 +225,7 @@ bool Game::isPlayerAirplaneInsideFlightArea()
     // return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
     return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }
+
+void Game::rotatePlayerAirplaneCannon(float moviment) {
+    this->playerAirplane.rotateCannon(moviment, deltaIdleTime);
+}
