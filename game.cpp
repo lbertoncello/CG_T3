@@ -192,6 +192,30 @@ void Game::drawTerrestrialEnemies()
     }
 }
 
+void Game::drawBullets()
+{
+    vector<Bullet>::iterator bullets_it;
+    for (bullets_it = bullets.begin(); bullets_it != bullets.end(); bullets_it++)
+    {
+        glPushMatrix();
+        //glTranslatef(-flightArea.getArea().getCenter_x() + bullets_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + bullets_it->getBody().getCenter_y(), 0.0);
+        bullets_it->draw();
+        glPopMatrix();
+    }
+}
+
+void Game::drawBombs()
+{
+    vector<Bomb>::iterator bombs_it;
+    for (bombs_it = bombs.begin(); bombs_it != bombs.end(); bombs_it++)
+    {
+        glPushMatrix();
+        glTranslatef(-flightArea.getArea().getCenter_x() + bombs_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + bombs_it->getBody().getCenter_y(), 0.0);
+        bombs_it->draw();
+        glPopMatrix();
+    }
+}
+
 void Game::drawGame(GLfloat deltaIdleTime)
 {
     this->deltaIdleTime = deltaIdleTime;
@@ -202,6 +226,8 @@ void Game::drawGame(GLfloat deltaIdleTime)
     drawFlightEnemies();
     drawAirportRunway();
     drawPlayerAirplane();
+    drawBullets();
+    drawBombs();
 
     glPopMatrix();
 }
@@ -226,6 +252,17 @@ bool Game::isPlayerAirplaneInsideFlightArea()
     return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }
 
-void Game::rotatePlayerAirplaneCannon(float moviment) {
+void Game::rotatePlayerAirplaneCannon(float moviment)
+{
     this->playerAirplane.rotateCannon(moviment, deltaIdleTime);
+}
+
+void Game::shoot()
+{
+    bullets.push_back(this->playerAirplane.shoot(deltaIdleTime));
+}
+
+void Game::dropBomb()
+{
+    bombs.push_back(this->playerAirplane.dropBomb(deltaIdleTime));
 }

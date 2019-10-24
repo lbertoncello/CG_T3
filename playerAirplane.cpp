@@ -5,6 +5,8 @@ void PlayerAirplane::draw()
     glPushMatrix();
     glTranslatef(dX, dY, 0.0);
     glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
+
+    cannonCoordinates = Point(dX, dY);
     //glRotatef(-15, 0.0, 0.0, 1.0);
 
     drawWings();
@@ -135,6 +137,8 @@ void PlayerAirplane::drawCannon()
     glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
     glRotatef(-90 + calc.radiansToDegrees(cannonAngle), 0.0, 0.0, 1.0);
     drawer.drawRectangle(this->body.getRadius() / 5, this->body.getRadius() / 2, color);
+
+    cannonCoordinates.setX(cannonCoordinates.getX() + this->body.getRadius() * 0.9);
 
     glPopMatrix();
 }
@@ -370,6 +374,23 @@ Point PlayerAirplane::getCurrentPositionAdjusted()
     return currentPositionAdjusted;
 }
 
+Point PlayerAirplane::getPositionAdjusted(Point position)
+{
+    Point currentPositionAdjusted;
+    currentPositionAdjusted.setX(position.getX() + dX - this->startPosition.getX());
+    currentPositionAdjusted.setY(position.getY() + dY - this->startPosition.getY());
+
+    // currentPositionAdjusted.setX( dX );
+    // currentPositionAdjusted.setY( dY );
+
+    // cout << "x: " << currentPositionAdjusted.getX() << endl;
+    // cout << "y: " << currentPositionAdjusted.getY() << endl;
+    // cout << "x: " << currentPosition.getX() << endl;
+    // cout << "y: " << currentPosition.getY() << endl;
+
+    return currentPositionAdjusted;
+}
+
 void PlayerAirplane::rotateCannon(float moviment, float deltaIdleTime)
 {
     cannonAngle += PI / 2 * moviment / 10 * deltaIdleTime;
@@ -380,6 +401,19 @@ void PlayerAirplane::rotateCannon(float moviment, float deltaIdleTime)
     }
     else if (cannonAngle < -PI / 4)
     {
-        cannonAngle = - PI / 4;
+        cannonAngle = -PI / 4;
     }
+}
+
+Bullet PlayerAirplane::shoot(float deltaIdleTime)
+{
+    Point positionAdjusted = getPositionAdjusted(cannonCoordinates);
+    //positionAdjusted.setX(positionAdjusted.getX() - this->body.getRadius());
+    //positionAdjusted.setY(positionAdjusted.getY() - this->body.getRadius());
+
+    return Bullet(positionAdjusted, cannonCoordinates, speedNorm, cannonAngle, inclinationAngle - 90);
+}
+
+Bomb PlayerAirplane::dropBomb(float deltaIdleTime)
+{
 }

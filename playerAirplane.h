@@ -2,6 +2,8 @@
 #define PLAYER_AIRPLANE_H
 
 #include "circle.h"
+#include "bullet.h"
+#include "bomb.h"
 #include "draw.h"
 #include "calc.h"
 
@@ -34,6 +36,7 @@ class PlayerAirplane
     float speedMultiplier;
     Calc calc;
     float cannonAngle = 0.0;
+    Point cannonCoordinates;
 
     void speedInit()
     {
@@ -53,6 +56,7 @@ class PlayerAirplane
     float calcNextMovement_x(GLfloat deltaIdleTime, float nextMoveAngle);
     float calcNextMovement_y(GLfloat deltaIdleTime, float nextMoveAngle);
     void updateInclinationAngle(GLfloat deltaIdleTime);
+    Point getPositionAdjusted(Point position);
 
 public:
     PlayerAirplane()
@@ -246,6 +250,8 @@ public:
     void teleport();
     Point getCurrentPositionAdjusted();
     void rotateCannon(float moviment, float deltaIdleTime);
+    Bullet shoot(float deltaIdleTime);
+    Bomb dropBomb(float deltaIdleTime);
 };
 
 #endif

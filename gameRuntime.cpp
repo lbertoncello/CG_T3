@@ -100,6 +100,7 @@ void GameRuntime::mouse(int button, int state, int x, int y)
         }
         else
         {
+            game.shoot();
         }
     }
 

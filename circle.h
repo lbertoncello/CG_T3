@@ -26,6 +26,13 @@ public:
         this->radius = radius;
     }
 
+    Circle(Point center, float radius, Color color)
+    {
+        this->center = center;
+        this->radius = radius;
+        this->color = color;
+    }
+
     Circle(int id, Point center, float radius)
     {
         this->id = id;
