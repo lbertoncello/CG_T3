@@ -15,17 +15,17 @@ void Draw::updateCurrentCircleMoving()
     currentCircleMoving->updateCenter(currentCenter);
 }
 
-void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color)
+void Draw::drawCircle(GLfloat cx, GLfloat cy, GLfloat r, GLint num_segments, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());
     glBegin(GL_LINE_LOOP);
 
-    for (int ii = 0; ii < num_segments; ii++)
+    for (GLint ii = 0; ii < num_segments; ii++)
     {
-        float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle
+        GLfloat theta = 2.0f * 3.1415926f * GLfloat(ii) / GLfloat(num_segments); //get the current angle
 
-        float x = r * cosf(theta); //calculate the x component
-        float y = r * sinf(theta); //calculate the y component
+        GLfloat x = r * cosf(theta); //calculate the x component
+        GLfloat y = r * sinf(theta); //calculate the y component
 
         //glVertex2f(x + cx, y + cy); //output vertex
         glVertex2f(x, y); //output vertex
@@ -33,20 +33,20 @@ void Draw::drawCircle(float cx, float cy, float r, int num_segments, Color color
     glEnd();
 }
 
-void Draw::drawEllipse(float rx, float ry, Color color, int num_segments)
+void Draw::drawEllipse(GLfloat rx, GLfloat ry, Color color, GLint num_segments)
 {
-    float theta = 2 * 3.1415926 / float(num_segments);
-    float c = cosf(theta); //precalculate the sine and cosine
-    float s = sinf(theta);
-    float t;
+    GLfloat theta = 2 * 3.1415926 / GLfloat(num_segments);
+    GLfloat c = cosf(theta); //precalculate the sine and cosine
+    GLfloat s = sinf(theta);
+    GLfloat t;
 
-    float x = 1; //we start at angle = 0
-    float y = 0;
+    GLfloat x = 1; //we start at angle = 0
+    GLfloat y = 0;
 
     glColor3f(color.getR(), color.getG(), color.getB());
 
     glBegin(GL_TRIANGLE_FAN);
-    for (int ii = 0; ii < num_segments; ii++)
+    for (GLint ii = 0; ii < num_segments; ii++)
     {
         //apply radius and offset
         glVertex2f(x * rx, y * ry); //output vertex
@@ -59,13 +59,13 @@ void Draw::drawEllipse(float rx, float ry, Color color, int num_segments)
     glEnd();
 }
 
-void Draw::drawFilledCircle(float x1, float y1, double radius, Color color)
+void Draw::drawFilledCircle(GLfloat x1, GLfloat y1, double radius, Color color)
 {
     //filled circle
-    float x2, y2;
+    GLfloat x2, y2;
     x1 = 0;
     y1 = 0;
-    float angle;
+    GLfloat angle;
 
     //x1 = 0.5,y1=0.6;
     glColor3f(color.getR(), color.getG(), color.getB());
@@ -105,7 +105,7 @@ void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
     glEnd();
 }
 
-void Draw::drawRectangle(float width, float height, Color color)
+void Draw::drawRectangle(GLfloat width, GLfloat height, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());
     glBegin(GL_QUADS);
@@ -127,13 +127,13 @@ void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
     glEnd();
 }
 
-void Draw::updateCurrentCenter(float x, float y, float x_window_size, float y_window_size)
+void Draw::updateCurrentCenter(GLfloat x, GLfloat y, GLfloat x_window_size, GLfloat y_window_size)
 {
-    //float center_x = x / float(x_window_size);
-    //float center_y = 1.0 - (y / float(y_window_size));
+    //GLfloat center_x = x / GLfloat(x_window_size);
+    //GLfloat center_y = 1.0 - (y / GLfloat(y_window_size));
 
-    float center_x = x;
-    float center_y = y_window_size - y;
+    GLfloat center_x = x;
+    GLfloat center_y = y_window_size - y;
 
     currentCenter.update(center_x, center_y);
 }
@@ -161,7 +161,7 @@ void Draw::drawEllipse(Circle circle)
     drawEllipse(circle.getRadius(), circle.getRadius() / 4, circle.getColor(), num_segments);
 }
 
-void Draw::drawEllipse(float radius, Color color)
+void Draw::drawEllipse(GLfloat radius, Color color)
 {
     drawEllipse(radius, radius / 4, color, num_segments);
 }

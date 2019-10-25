@@ -1,6 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <GL/glut.h>
 #include <iostream>
 #include <string>
 
@@ -8,14 +9,14 @@ using namespace std;
 
 class Color {
     private:
-        float r = 0;
-        float g = 0;
-        float b = 0;
+        GLfloat r = 0;
+        GLfloat g = 0;
+        GLfloat b = 0;
 
     public:
         Color() {}
 
-        Color(float r, float g, float b) {
+        Color(GLfloat r, GLfloat g, GLfloat b) {
             this->r = r;
             this->g = g;
             this->b = b;
@@ -34,27 +35,27 @@ class Color {
             }
         }
 
-        float getR() {
+        GLfloat getR() {
             return r;
         }
 
-        float getG() {
+        GLfloat getG() {
             return g;
         }
 
-        float getB() {
+        GLfloat getB() {
             return b;
         }
 
-        void setR(float r) {
+        void setR(GLfloat r) {
             this->r = r;
         }        
 
-        void setG(float g) {
+        void setG(GLfloat g) {
             this->g = g;
         }
 
-        void setB(float b) {
+        void setB(GLfloat b) {
             this->b = b;
         }
 

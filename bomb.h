@@ -7,8 +7,8 @@
 class Bomb
 {
     Circle body;
-    float speed;
-    float angle;
+    GLfloat speed;
+    GLfloat angle;
     Color color;
     Point position;
     Draw drawer;
@@ -16,7 +16,7 @@ class Bomb
 public:
     Bomb() {}
 
-    Bomb(Circle body, float speed, float angle, Color color, Point position)
+    Bomb(Circle body, GLfloat speed, GLfloat angle, Color color, Point position)
     {
         this->body = body;
         this->speed = speed;
@@ -30,12 +30,12 @@ public:
         return body;
     }
 
-    float getSpeed()
+    GLfloat getSpeed()
     {
         return speed;
     }
 
-    float getAngle()
+    GLfloat getAngle()
     {
         return angle;
     }

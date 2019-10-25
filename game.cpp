@@ -1,24 +1,22 @@
 #include "game.h"
-
 #include <iostream>
-
 #include "calc.h"
 
 high_resolution_clock::time_point takeOffStartTime;
 high_resolution_clock::time_point sizeIncreaseStartTime;
-vector<float> takeOffAcceleration;
-float sizeIncreaseAcceleration;
+vector<GLfloat> takeOffAcceleration;
+GLfloat sizeIncreaseAcceleration;
 bool beforeAirportRunwayMiddle;
 
 Calc calc;
 
-vector<float> Game::calcTakeOffAcceleration()
+vector<GLfloat> Game::calcTakeOffAcceleration()
 {
     Point initialPosition = airportRunway.getAdjustedBody().getPoint1();
-    //float finalPosition = calc.euclideanDistance(airportRunway.getBody().getPoint1(), airportRunway.getBody().getPoint2());
+    //GLfloat finalPosition = calc.euclideanDistance(airportRunway.getBody().getPoint1(), airportRunway.getBody().getPoint2());
     Point finalPosition = airportRunway.getAdjustedBody().getPoint2();
-    vector<float> initialSpeed = calc.zerosVector(2);
-    float time = TAKEOFF_TIME;
+    vector<GLfloat> initialSpeed = calc.zerosVector(2);
+    GLfloat time = TAKEOFF_TIME;
 
     return calc.calcAccelerationRequired(initialPosition, finalPosition, initialSpeed, time);
 }
@@ -48,41 +46,41 @@ void Game::takeOff()
     playerAirplane.setSpeed(calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME));
 }
 
-Point Game::currentTakeOffPosition(float time)
+Point Game::currentTakeOffPosition(GLfloat time)
 {
     Point initialPosition = airportRunway.getAdjustedBody().getPoint1();
-    vector<float> acceleration = takeOffAcceleration;
-    vector<float> initialSpeed = calc.zerosVector(2);
+    vector<GLfloat> acceleration = takeOffAcceleration;
+    vector<GLfloat> initialSpeed = calc.zerosVector(2);
 
     return calc.calcCurrentPositionVariation(initialPosition, acceleration, initialSpeed, time);
 }
 
-float Game::calcSizeIncreaseAcceleration()
+GLfloat Game::calcSizeIncreaseAcceleration()
 {
-    float airportRunwayScalarSize = calc.euclideanDistance(airportRunway.getAdjustedBody().getPoint1(), airportRunway.getAdjustedBody().getPoint2());
+    GLfloat airportRunwayScalarSize = calc.euclideanDistance(airportRunway.getAdjustedBody().getPoint1(), airportRunway.getAdjustedBody().getPoint2());
     airportRunway.setScalarMiddle(airportRunwayScalarSize / 2.0);
-    float airportRunwayScalarAcceleration = calc.calcAccelerationRequired(0.0, airportRunwayScalarSize, 0.0, TAKEOFF_TIME);
+    GLfloat airportRunwayScalarAcceleration = calc.calcAccelerationRequired(0.0, airportRunwayScalarSize, 0.0, TAKEOFF_TIME);
 
-    float finalSpeed = calc.calcFinalSpeedRequired(0.0, airportRunwayScalarAcceleration, TAKEOFF_TIME);
+    GLfloat finalSpeed = calc.calcFinalSpeedRequired(0.0, airportRunwayScalarAcceleration, TAKEOFF_TIME);
 
-    float initialSize = playerAirplane.getBody().getRadius();
-    float finalSize = 2 * initialSize;
-    float initialSpeed = calc.calcInitialSpeedRequired(finalSpeed, airportRunwayScalarAcceleration, airportRunwayScalarSize / 2, airportRunwayScalarSize);
-    float time = calc.calcTimeRequired(initialSpeed, finalSpeed, airportRunwayScalarAcceleration);
+    GLfloat initialSize = playerAirplane.getBody().getRadius();
+    GLfloat finalSize = 2 * initialSize;
+    GLfloat initialSpeed = calc.calcInitialSpeedRequired(finalSpeed, airportRunwayScalarAcceleration, airportRunwayScalarSize / 2, airportRunwayScalarSize);
+    GLfloat time = calc.calcTimeRequired(initialSpeed, finalSpeed, airportRunwayScalarAcceleration);
 
     return calc.calcAccelerationRequired(initialSize, finalSize, 0, time);
 }
 
-float Game::currentRadius(float time)
+GLfloat Game::currentRadius(GLfloat time)
 {
-    float initialPosition = playerAirplane.getInitialRadius();
-    float acceleration = sizeIncreaseAcceleration;
-    float initialSpeed = 0;
+    GLfloat initialPosition = playerAirplane.getInitialRadius();
+    GLfloat acceleration = sizeIncreaseAcceleration;
+    GLfloat initialSpeed = 0;
 
     return calc.calcCurrentPositionVariation(initialPosition, acceleration, initialSpeed, time);
 }
 
-void Game::updateTakeOff(high_resolution_clock::time_point currentTime, float takeOffTimeElapsed)
+void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat takeOffTimeElapsed)
 {
     Point currentPositionVariation = currentTakeOffPosition(takeOffTimeElapsed);
     Point currentPosition(playerAirplane.getStartPosition().getX() + currentPositionVariation.getX(), playerAirplane.getStartPosition().getY() + currentPositionVariation.getY());
@@ -90,15 +88,15 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, float ta
 
     if (beforeAirportRunwayMiddle == false)
     {
-        duration<float> timeSpan = duration_cast<duration<float>>(currentTime - sizeIncreaseStartTime);
-        float sizeIncreaseTimeElapsed = timeSpan.count();
+        duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - sizeIncreaseStartTime);
+        GLfloat sizeIncreaseTimeElapsed = timeSpan.count();
 
-        float newRadius = playerAirplane.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
+        GLfloat newRadius = playerAirplane.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
         playerAirplane.getBody().setRadius(newRadius);
     }
     else
     {
-        float distance = calc.euclideanDistance(playerAirplane.getCurrentPosition(), airportRunway.getAdjustedBody().getPoint2());
+        GLfloat distance = calc.euclideanDistance(playerAirplane.getCurrentPosition(), airportRunway.getAdjustedBody().getPoint2());
 
         if (distance < airportRunway.getScalarMiddle())
         {
@@ -110,19 +108,19 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, float ta
 
 void Game::drawFlightArea()
 {
-    glPushMatrix();
+    // glPushMatrix();
     flightArea.draw();
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 void Game::drawPlayerAirplane()
 {
-    glPushMatrix();
+    // glPushMatrix();
     if (playerAirplane.isTakingOff())
     {
         high_resolution_clock::time_point currentTime = high_resolution_clock::now();
-        duration<float> timeSpan = duration_cast<duration<float>>(currentTime - takeOffStartTime);
-        float timeElapsed = timeSpan.count();
+        duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - takeOffStartTime);
+        GLfloat timeElapsed = timeSpan.count();
 
         if (timeElapsed >= TAKEOFF_TIME)
         {
@@ -157,15 +155,15 @@ void Game::drawPlayerAirplane()
     //glTranslatef(-flightArea.getArea().getCenter_x() + playerAirplane.getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + playerAirplane.getBody().getCenter_y(), 0.0);
 
     playerAirplane.draw();
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 void Game::drawAirportRunway()
 {
-    glPushMatrix();
+    // glPushMatrix();
     //glTranslatef(flightArea.getArea().getCenter_x() - airportRunway.getBody().getPoint2_x(), flightArea.getArea().getCenter_y() - airportRunway.getBody().getPoint2_y(), 0.0);
     airportRunway.draw();
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 void Game::drawFlightEnemies()
@@ -194,14 +192,16 @@ void Game::drawTerrestrialEnemies()
 
 void Game::drawBullets()
 {
+    glPushMatrix();
+
     vector<Bullet>::iterator bullets_it;
     for (bullets_it = bullets.begin(); bullets_it != bullets.end(); bullets_it++)
     {
-        glPushMatrix();
         //glTranslatef(-flightArea.getArea().getCenter_x() + bullets_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + bullets_it->getBody().getCenter_y(), 0.0);
         bullets_it->draw();
-        glPopMatrix();
     }
+
+    glPopMatrix();
 }
 
 void Game::drawBombs()
@@ -219,7 +219,7 @@ void Game::drawBombs()
 void Game::drawGame(GLfloat deltaIdleTime)
 {
     this->deltaIdleTime = deltaIdleTime;
-    glPushMatrix();
+    // glPushMatrix();
 
     drawFlightArea();
     drawTerrestrialEnemies();
@@ -229,7 +229,7 @@ void Game::drawGame(GLfloat deltaIdleTime)
     drawBullets();
     drawBombs();
 
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 bool Game::checkFlightEnemiesCollision()
@@ -252,7 +252,7 @@ bool Game::isPlayerAirplaneInsideFlightArea()
     return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }
 
-void Game::rotatePlayerAirplaneCannon(float moviment)
+void Game::rotatePlayerAirplaneCannon(GLfloat moviment)
 {
     this->playerAirplane.rotateCannon(moviment, deltaIdleTime);
 }

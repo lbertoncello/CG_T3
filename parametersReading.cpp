@@ -48,7 +48,7 @@
         }
     }
 
-    void ParametersReading::windowInit(float x_size, float y_size)
+    void ParametersReading::windowInit(GLfloat x_size, GLfloat y_size)
     {
         this->gameRuntime->setWindowsSize_x(x_size);
         this->gameRuntime->setWindowsSize_y(y_size);
@@ -92,7 +92,7 @@
             FlightArea flightArea(_circle);
             this->gameRuntime->getGame().setFlightArea(flightArea);
 
-            float diameter = 2 * _circle.getRadius();
+            GLfloat diameter = 2 * _circle.getRadius();
             windowInit(diameter, diameter);
         }
         else if (color == string("green"))
@@ -116,9 +116,9 @@
     {
         string delimiter = ":";
         string rgb = style.substr(style.find(delimiter) + 5, 5);
-        float r = stof(rgb.substr(0, 1)) / 255.0;
-        float g = stof(rgb.substr(2, 1)) / 255.0;
-        float b = stof(rgb.substr(4, 1)) / 255.0;
+        GLfloat r = stof(rgb.substr(0, 1)) / 255.0;
+        GLfloat g = stof(rgb.substr(2, 1)) / 255.0;
+        GLfloat b = stof(rgb.substr(4, 1)) / 255.0;
 
         return Color(r, g, b);
     }

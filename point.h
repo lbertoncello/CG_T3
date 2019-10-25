@@ -1,31 +1,33 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <GL/glut.h>
+
 class Point {
     private:
-        float x = 0;
-        float y = 0;
+        GLfloat x = 0;
+        GLfloat y = 0;
     public:
-        Point(float x, float y) {
+        Point(GLfloat x, GLfloat y) {
             this->x = x;
             this->y = y;
         }
 
         Point() {}
 
-        float getX() {
+        GLfloat getX() {
             return x;
         }
 
-        float getY() {
+        GLfloat getY() {
             return y;
         }
 
-        void setX(float x) {
+        void setX(GLfloat x) {
             this->x = x;
         }
 
-        void setY(float y) {
+        void setY(GLfloat y) {
             this->y = y;
         }
         
@@ -34,7 +36,7 @@ class Point {
             this->y = p.getY();
         }
 
-        void update(float x, float y) {
+        void update(GLfloat x, GLfloat y) {
             this->x = x;
             this->y = y;
         }

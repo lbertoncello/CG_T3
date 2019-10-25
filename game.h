@@ -31,11 +31,11 @@ class Game
     GLfloat deltaIdleTime;
     bool gameOver;
 
-    void updateTakeOff(high_resolution_clock::time_point currentTime, float takeOffTimeElapsed);
-    vector<float> calcTakeOffAcceleration();
-    Point currentTakeOffPosition(float time);
-    float calcSizeIncreaseAcceleration();
-    float currentRadius(float time);
+    void updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat takeOffTimeElapsed);
+    vector<GLfloat> calcTakeOffAcceleration();
+    Point currentTakeOffPosition(GLfloat time);
+    GLfloat calcSizeIncreaseAcceleration();
+    GLfloat currentRadius(GLfloat time);
     void drawFlightArea();
     void drawPlayerAirplane();
     void drawAirportRunway();
@@ -113,7 +113,7 @@ public:
     void init();
     void drawGame(GLfloat deltaIdleTime);
     void reset();
-    void rotatePlayerAirplaneCannon(float moviment);
+    void rotatePlayerAirplaneCannon(GLfloat moviment);
     void shoot();
     void dropBomb();
 };

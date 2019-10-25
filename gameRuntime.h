@@ -11,14 +11,14 @@ using namespace std;
 class GameRuntime
 {
 private:
-    float playerAirplaneSpeedMult;
-    float bulletSpeedMult;
+    GLfloat playerAirplaneSpeedMult;
+    GLfloat bulletSpeedMult;
 
     string windowTitle;
-    int windowSize_x = 1000;
-    int windowSize_y = 1000;
-    int windowInitial_x_position = 100;
-    int windowInitial_y_position = 100;
+    GLint windowSize_x = 1000;
+    GLint windowSize_y = 1000;
+    GLint windowInitial_x_position = 100;
+    GLint windowInitial_y_position = 100;
 
     Color backgroundColor;
 
@@ -27,7 +27,7 @@ private:
     static bool *keyStates;
     bool isLeftMouseButtonPressed = false;
     bool isRightMouseButtonPressed = false;
-    float previousX = 0;
+    GLfloat previousX = 0;
 
 public:
     GameRuntime() {}
@@ -42,12 +42,12 @@ public:
         return this->backgroundColor;
     }
 
-    float getPlayerAirplaneSpeedMult()
+    GLfloat getPlayerAirplaneSpeedMult()
     {
         return this->playerAirplaneSpeedMult;
     }
 
-    float getBulletSpeedMult()
+    GLfloat getBulletSpeedMult()
     {
         return this->bulletSpeedMult;
     }
@@ -57,32 +57,32 @@ public:
         return this->windowTitle;
     }
 
-    int getWindowSize_x()
+    GLint getWindowSize_x()
     {
         return this->windowSize_x;
     }
 
-    int getWindowSize_y()
+    GLint getWindowSize_y()
     {
         return this->windowSize_y;
     }
 
-    int getWindowInitial_x_position()
+    GLint getWindowInitial_x_position()
     {
         return this->windowInitial_x_position;
     }
 
-    int getWindowInitial_y_position()
+    GLint getWindowInitial_y_position()
     {
         return this->windowInitial_y_position;
     }
 
-    void setPlayerAirplaneSpeedMult(float playerAirplaneSpeedMult)
+    void setPlayerAirplaneSpeedMult(GLfloat playerAirplaneSpeedMult)
     {
         this->playerAirplaneSpeedMult = playerAirplaneSpeedMult;
     }
 
-    void setBulletSpeedMult(float bulletSpeedMult)
+    void setBulletSpeedMult(GLfloat bulletSpeedMult)
     {
         this->bulletSpeedMult = bulletSpeedMult;
     }
@@ -92,12 +92,12 @@ public:
         this->windowTitle = windowTitle;
     }
 
-    void setWindowsSize_x(int windowSize_x)
+    void setWindowsSize_x(GLint windowSize_x)
     {
         this->windowSize_x = windowSize_x;
     }
 
-    void setWindowsSize_y(int windowSize_y)
+    void setWindowsSize_y(GLint windowSize_y)
     {
         this->windowSize_y = windowSize_y;
     }
@@ -108,11 +108,11 @@ public:
     }
 
     void keyOperations(void);
-    static void keyPress(unsigned char key, int x, int y);
-    static void keyUp(unsigned char key, int x, int y);
-    void mouse(int button, int state, int x, int y);
-    void motion(int x, int y);
-    void passiveMotion(int x, int y);
+    static void keyPress(unsigned char key, GLint x, GLint y);
+    static void keyUp(unsigned char key, GLint x, GLint y);
+    void mouse(GLint button, GLint state, GLint x, GLint y);
+    void motion(GLint x, GLint y);
+    void passiveMotion(GLint x, GLint y);
 };
 
 #endif
