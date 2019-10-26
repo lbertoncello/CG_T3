@@ -48,6 +48,7 @@ class Game
     void eraseBullets();
     void eraseBombs();
     bool isBulletInsideFlightArea(Bullet* bullet);
+    bool isBombInsideFlightArea(Bomb *bomb);
     void callGameOver();
 
 public:

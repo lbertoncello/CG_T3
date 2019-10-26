@@ -29,18 +29,18 @@ public:
         this->dY = moveCoordinates.getY();
     }
 
-    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle, Color color)
+    Bullet(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle, Color color)
     {
-        this->body = Circle(bodyCoordinates, 4, color);
+        this->body = Circle(bodyCoordinates, radius, color);
         this->speedNorm = speedNorm;
         this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
     }
 
-    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
+    Bullet(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
     {
-        this->body = Circle(bodyCoordinates, 4, Color(1, 0, 1));
+        this->body = Circle(bodyCoordinates, radius, Color(1, 0, 1));
         this->speedNorm = speedNorm;
         this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();

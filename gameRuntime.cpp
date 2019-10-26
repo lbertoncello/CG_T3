@@ -111,10 +111,6 @@ void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
                 {
                     game.dropBomb();
                 }
-                else
-                {
-                    game.dropBomb();
-                }
             }
         }
     }

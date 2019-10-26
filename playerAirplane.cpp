@@ -387,6 +387,7 @@ Bullet* PlayerAirplane::shoot(GLfloat deltaIdleTime)
 {
     GLfloat resultingAngle = calc.degreesToRadians(inclinationAngle) + cannonAngle;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
+    GLfloat bulletRadius = this->body.getRadius() / 8;
     Point bulletCoordinates;
 
     bulletCoordinates.setX(
@@ -396,9 +397,16 @@ Bullet* PlayerAirplane::shoot(GLfloat deltaIdleTime)
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
 
-    return new Bullet(bulletBodyCoordinates, bulletCoordinates, bulletSpeed, resultingAngle);
+    return new Bullet(bulletBodyCoordinates, bulletRadius, bulletCoordinates, bulletSpeed, resultingAngle);
 }
 
 Bomb* PlayerAirplane::dropBomb(GLfloat deltaIdleTime)
 {
+    GLfloat resultingAngle = calc.degreesToRadians(inclinationAngle);
+    GLfloat bombSpeed = speedNorm;
+    Point bombCoordinates = Point(dX, dY);
+    Point bombBodyCoordinates = getCurrentPositionAdjusted();
+    GLfloat bombRadius = this->body.getRadius() / 4;
+
+    return new Bomb(bombBodyCoordinates, bombRadius, bombCoordinates, bombSpeed, resultingAngle);
 }
