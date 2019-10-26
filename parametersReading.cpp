@@ -172,7 +172,6 @@
 
         if (loadOkay)
         {
-            //TiXmlElement *arenaDescription = doc.RootElement();
             TiXmlNode *arenaDescription = doc.FirstChildElement("svg");
 
             TiXmlElement *element = arenaDescription->FirstChildElement();

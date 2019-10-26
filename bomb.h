@@ -1,8 +1,16 @@
 #ifndef BOMB_H
 #define BOMB_H
 
+#include <ctime>
+#include <ratio>
+#include <chrono>
+
 #include "circle.h"
 #include "draw.h"
+#include "calc.h"
+
+using namespace std::chrono;
+using namespace std;
 
 #define BOMB_LIFETIME 4.0
 
@@ -15,7 +23,15 @@ class Bomb
     GLfloat moveAngle;
     Point startPosition;
     Draw drawer;
+    Calc calc;
+    GLfloat initialRadius;
+    GLfloat sizeDecreaseAcceleration;
+    high_resolution_clock::time_point dropStartTime;
+    high_resolution_clock::time_point currentTime;
+    bool onTheGround = false;
 
+    void calcSizeDecreaseAcceleration();
+    GLfloat calcCurrentRadiusVariation();
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
     GLfloat calcMovement_y(GLfloat deltaIdleTime);
 
@@ -29,6 +45,10 @@ public:
         this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        dropStartTime = std::chrono::high_resolution_clock::now();
+        currentTime = std::chrono::high_resolution_clock::now();
+        initialRadius = this->body.getRadius();
+        calcSizeDecreaseAcceleration();
     }
 
     Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle, Color color)
@@ -38,6 +58,10 @@ public:
         this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        dropStartTime = std::chrono::high_resolution_clock::now();
+        currentTime = std::chrono::high_resolution_clock::now();
+        initialRadius = this->body.getRadius();
+        calcSizeDecreaseAcceleration();
     }
 
     Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
@@ -49,6 +73,10 @@ public:
         this->dY = moveCoordinates.getY();
         this->startPosition.setX(dX);
         this->startPosition.setY(dY);
+        dropStartTime = std::chrono::high_resolution_clock::now();
+        currentTime = std::chrono::high_resolution_clock::now();
+        initialRadius = this->body.getRadius();
+        calcSizeDecreaseAcceleration();
     }
 
     Circle &getBody()
@@ -66,8 +94,14 @@ public:
         return moveAngle;
     }
 
+    bool isOnTheGround()
+    {
+        return onTheGround;
+    }
+
     void draw();
     void move(GLfloat deltaIdleTime);
+    void updateSize();
     Point getCurrentPositionAdjusted();
 };
 

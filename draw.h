@@ -84,7 +84,6 @@ public:
     void drawCircle(Circle circle);
     void drawEllipse(Circle circle);
     void drawEllipse(GLfloat radius, Color color);
-    void drawRectangle(Point p1, Point p2);
     void drawRectangle(GLfloat width, GLfloat height, Color color);
     void drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color);
     void drawTriangle(Point p1, Point p2, Point p3, Color color);

@@ -10,8 +10,6 @@ void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coor
 
 void AirportRunway::draw()
 {
-    //drawer.drawLine(this->getBody());
-    //drawer.drawLine(p1, p2, this->getAdjustedBody());
     drawer.drawLine(this->adjustedBody);
 }
 

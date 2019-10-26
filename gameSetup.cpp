@@ -8,7 +8,6 @@ void GameSetup::display(void)
     gameRuntime.getGame().drawGame(deltaIdleTime);
 
     /* Não esperar */
-    //glFlush();
     glutSwapBuffers();
 }
 

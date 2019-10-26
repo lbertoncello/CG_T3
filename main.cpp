@@ -53,7 +53,6 @@ int main(int argc, char **argv)
                 glutInitWindowPosition(gameSetup->getGameRuntime().getWindowInitial_x_position(), gameSetup->getGameRuntime().getWindowInitial_y_position());
                 glutCreateWindow(gameSetup->getGameRuntime().getWindowTitle().c_str());
                 gameSetup->init();
-                //glutDisplayFunc(gameSetup->display);
                 glutDisplayFunc(gameSetupDisplayFunctionWrapper);
 
                 glutKeyboardFunc(gameSetup->getGameRuntime().keyPress);
