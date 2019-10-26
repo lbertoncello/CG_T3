@@ -4,8 +4,6 @@
 
 using namespace std;
 
-//S=So+Vot+at2/2
-
 GLfloat Calc::euclideanDistance(GLint x1, GLint y1, GLint x2, GLint y2)
 {
     // Calculating distance

@@ -153,16 +153,10 @@ public:
             startPositionInitialized = true;
         }
 
-        // dX = currentPosition.getX() - this->startPosition.getX();
-        // dY = currentPosition.getY() - this->startPosition.getY();
-
         dX = currentPosition.getX();
         dY = currentPosition.getY();
 
         this->currentPosition = currentPosition;
-
-        //this->currentPosition.setX(currentPosition.getX() - this->startPosition.getX());
-        //this->currentPosition.setY(currentPosition.getY() - this->startPosition.getY());
     }
 
     void setFlying(bool flying)
@@ -177,7 +171,6 @@ public:
 
     void setSpeed(vector<GLfloat> speed)
     {
-        //GLfloat speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
         speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
         moveAngle = -atan2f(speed[1], speed[0]);
 
@@ -213,21 +206,11 @@ public:
     void setTurningLeft(bool turningLeft)
     {
         this->turningLeft = turningLeft;
-
-        // if (turningLeft == false && turningRight == false)
-        // {
-        //     moveAngle = PI / 4;
-        // }
     }
 
     void setTurningRight(bool turningRight)
     {
         this->turningRight = turningRight;
-
-        // if (turningLeft == false && turningRight == false)
-        // {
-        //     moveAngle = PI / 4;
-        // }
     }
 
     void setSpeedIncrement(GLfloat speedIncrement)

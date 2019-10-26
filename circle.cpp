@@ -10,7 +10,6 @@ using namespace std;
 bool Circle::isPointInCircle(Point p)
 {
     GLfloat d = sqrt(pow((p.getX() - center.getX()), 2) + pow((p.getY() - center.getY()), 2));
-    //cout << "d: " << d << endl;
 
     if (d > radius)
     {

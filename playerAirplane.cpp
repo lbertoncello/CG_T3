@@ -16,12 +16,7 @@ void PlayerAirplane::draw()
 
 void PlayerAirplane::drawMainBody()
 {
-    // glPushMatrix();
-
     drawer.drawEllipse(this->body);
-    // drawer.drawCircle(this->body);
-
-    // glPopMatrix();
 }
 
 void PlayerAirplane::drawTail()
@@ -91,10 +86,7 @@ void PlayerAirplane::drawWings()
 
 void PlayerAirplane::drawPropeller()
 {
-    // glPushMatrix();
-
     Color rodColor(0.0, 0.0, 0.0);
-    //glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
 
     glPushMatrix();
 
@@ -123,8 +115,6 @@ void PlayerAirplane::drawPropeller()
     drawer.drawTriangle(p4, p5, p6, propellerColor);
 
     glPopMatrix();
-
-    // glPopMatrix();
 }
 
 void PlayerAirplane::drawCannon()
@@ -190,10 +180,6 @@ Point PlayerAirplane::getNextPosition(GLfloat deltaIdleTime)
 bool PlayerAirplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime)
 {
     Circle adjustedBody = Circle(this->getNextPosition(deltaIdleTime), this->body.getRadius());
-    // adjustedBody.setCenter_x(this->dX);
-    // adjustedBody.setCenter_y(this->dY);
-    // adjustedBody.setCenter_x(flightAreaBody.getCenter_x() + this->dX);
-    // adjustedBody.setCenter_y(flightAreaBody.getCenter_y() + this->dY);
     adjustedBody.setCenter_x(flightAreaBody.getCenter_x() + adjustedBody.getCenter_x());
     adjustedBody.setCenter_y(flightAreaBody.getCenter_y() + adjustedBody.getCenter_y());
 
@@ -203,8 +189,6 @@ bool PlayerAirplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, 
 bool PlayerAirplane::isInside(Circle circle, GLint moveDirection, GLfloat deltaIdleTime)
 {
     Circle adjustedBody = this->body;
-    // adjustedBody.setCenter_x(this->dX);
-    // adjustedBody.setCenter_y(this->dY);
     adjustedBody.setCenter_x(circle.getCenter_x() + this->dX);
     adjustedBody.setCenter_y(circle.getCenter_y() + this->dY);
 

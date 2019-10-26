@@ -135,14 +135,11 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
 void Game::drawFlightArea()
 {
-    // glPushMatrix();
     flightArea.draw();
-    // glPopMatrix();
 }
 
 void Game::drawPlayerAirplane()
 {
-    // glPushMatrix();
     if (playerAirplane.isTakingOff())
     {
         high_resolution_clock::time_point currentTime = high_resolution_clock::now();
@@ -179,18 +176,12 @@ void Game::drawPlayerAirplane()
         }
     }
 
-    //glTranslatef(-flightArea.getArea().getCenter_x() + playerAirplane.getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + playerAirplane.getBody().getCenter_y(), 0.0);
-
     playerAirplane.draw();
-    // glPopMatrix();
 }
 
 void Game::drawAirportRunway()
 {
-    // glPushMatrix();
-    //glTranslatef(flightArea.getArea().getCenter_x() - airportRunway.getBody().getPoint2_x(), flightArea.getArea().getCenter_y() - airportRunway.getBody().getPoint2_y(), 0.0);
     airportRunway.draw();
-    // glPopMatrix();
 }
 
 void Game::drawFlightEnemies()
@@ -276,7 +267,6 @@ void Game::drawBombs()
 void Game::drawGame(GLfloat deltaIdleTime)
 {
     this->deltaIdleTime = deltaIdleTime;
-    // glPushMatrix();
 
     drawFlightArea();
     drawTerrestrialEnemies();
@@ -285,8 +275,6 @@ void Game::drawGame(GLfloat deltaIdleTime)
     drawBombs();
     drawPlayerAirplane();
     drawBullets();
-
-    // glPopMatrix();
 }
 
 bool Game::isBulletInsideFlightArea(Bullet *bullet)
@@ -315,7 +303,6 @@ bool Game::checkFlightEnemiesCollision()
 
 bool Game::isPlayerAirplaneInsideFlightArea()
 {
-    // return playerAirplane.isInside(flightArea.getArea(), moveDirection, deltaIdleTime);
     return flightArea.getArea().isPointInCircle(playerAirplane.getCurrentPositionAdjusted());
 }
 

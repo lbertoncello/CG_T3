@@ -27,7 +27,6 @@ void Draw::drawCircle(GLfloat cx, GLfloat cy, GLfloat r, GLint num_segments, Col
         GLfloat x = r * cosf(theta); //calculate the x component
         GLfloat y = r * sinf(theta); //calculate the y component
 
-        //glVertex2f(x + cx, y + cy); //output vertex
         glVertex2f(x, y); //output vertex
     }
     glEnd();
@@ -67,7 +66,6 @@ void Draw::drawFilledCircle(GLfloat x1, GLfloat y1, double radius, Color color)
     y1 = 0;
     GLfloat angle;
 
-    //x1 = 0.5,y1=0.6;
     glColor3f(color.getR(), color.getG(), color.getB());
 
     glBegin(GL_TRIANGLE_FAN);
@@ -81,17 +79,6 @@ void Draw::drawFilledCircle(GLfloat x1, GLfloat y1, double radius, Color color)
     }
 
     glEnd();
-}
-
-void Draw::drawRectangle(Point p1, Point p2)
-{
-    // //glColor3f (red, green, blue);
-    // glBegin(GL_POLYGON);
-    // 	glVertex3f (-width / 2.0, 0, 0.0);
-    // 	glVertex3f (width / 2.0, 0, 0.0);
-    // 	glVertex3f (width / 2.0, height, 0.0);
-    // 	glVertex3f (-width / 2.0, height, 0.0);
-    // glEnd();
 }
 
 void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
@@ -129,9 +116,6 @@ void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
 
 void Draw::updateCurrentCenter(GLfloat x, GLfloat y, GLfloat x_window_size, GLfloat y_window_size)
 {
-    //GLfloat center_x = x / GLfloat(x_window_size);
-    //GLfloat center_y = 1.0 - (y / GLfloat(y_window_size));
-
     GLfloat center_x = x;
     GLfloat center_y = y_window_size - y;
 
@@ -217,7 +201,6 @@ void Draw::drawLine(Line line)
 
     glBegin(GL_LINES);
     glVertex2d(line.getPoint1_x(), line.getPoint1_y());
-    //glVertex2d(0, 0);
     glVertex2d(line.getPoint2_x(), line.getPoint2_y());
     glEnd();
 }
@@ -228,7 +211,6 @@ void Draw::drawLine(Point p1, Point p2, Color color)
     glPointSize(0.5);
 
     glBegin(GL_LINES);
-    //glVertex2d(line.getPoint1_x(), line.getPoint1_y());
     glVertex2d(p1.getX(), p1.getY());
     glVertex2d(p2.getX(), p2.getY());
     glEnd();

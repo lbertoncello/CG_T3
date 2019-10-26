@@ -16,8 +16,6 @@
 using namespace std::chrono;
 using namespace std;
 
-//using namespace std::chrono;
-
 class Game
 {
     Draw draw;
