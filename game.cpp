@@ -249,9 +249,19 @@ void Game::drawBombs()
     {
         if (isBombInsideFlightArea((*bombs_it)))
         {
-            (*bombs_it)->move(deltaIdleTime);
-            (*bombs_it)->draw();
-            bombs_it++;
+            (*bombs_it)->updateSize();
+
+            if (!(*bombs_it)->isOnTheGround())
+            {
+                (*bombs_it)->move(deltaIdleTime);
+                (*bombs_it)->draw();
+                bombs_it++;
+            }
+            else
+            {
+                delete (*bombs_it);
+                bombs_it = bombs.erase(bombs_it);
+            }
         }
         else
         {
