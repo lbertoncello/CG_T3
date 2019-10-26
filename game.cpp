@@ -40,6 +40,12 @@ vector<GLfloat> Game::calcTakeOffAcceleration()
     return calc.calcAccelerationRequired(initialPosition, finalPosition, initialSpeed, time);
 }
 
+void Game::callGameOver()
+{
+    gameOver = true;
+    this->playerAirplane.setPropellerAngle(0.0);
+}
+
 void Game::reset()
 {
     playerAirplane.reset();
@@ -169,7 +175,7 @@ void Game::drawPlayerAirplane()
         }
         else
         {
-            gameOver = true;
+            callGameOver();
         }
     }
 
@@ -216,14 +222,16 @@ void Game::drawBullets()
     glPushMatrix();
 
     vector<Bullet *>::iterator bullets_it;
-    for (bullets_it = bullets.begin(); bullets_it != bullets.end(); )
+    for (bullets_it = bullets.begin(); bullets_it != bullets.end();)
     {
         if (isBulletInsideFlightArea((*bullets_it)))
         {
             (*bullets_it)->move(deltaIdleTime);
             (*bullets_it)->draw();
             bullets_it++;
-        } else {
+        }
+        else
+        {
             delete (*bullets_it);
             bullets_it = bullets.erase(bullets_it);
         }

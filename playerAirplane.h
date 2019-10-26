@@ -37,6 +37,7 @@ class PlayerAirplane
     GLfloat bulletSpeedMultiplier = 1.0;
     Calc calc;
     GLfloat cannonAngle = 0.0;
+    GLfloat propellerAngle = 0.0;
 
     void speedInit()
     {
@@ -204,7 +205,8 @@ public:
         return this->inclinationAngle;
     }
 
-    void setBulletSpeedMultiplier(GLfloat bulletSpeedMultiplier) {
+    void setBulletSpeedMultiplier(GLfloat bulletSpeedMultiplier)
+    {
         this->bulletSpeedMultiplier = bulletSpeedMultiplier;
     }
 
@@ -233,6 +235,16 @@ public:
         this->speedIncrement = speedIncrement;
     }
 
+    void incrementPropellerAngle()
+    {
+        this->propellerAngle += 0.10 * speedNorm;
+    }
+
+    void setPropellerAngle(GLfloat propellerAngle)
+    {
+        this->propellerAngle = propellerAngle;
+    }
+
     void draw();
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime);
@@ -250,8 +262,8 @@ public:
     void teleport();
     Point getCurrentPositionAdjusted();
     void rotateCannon(GLfloat moviment, GLfloat deltaIdleTime);
-    Bullet* shoot(GLfloat deltaIdleTime);
-    Bomb* dropBomb(GLfloat deltaIdleTime);
+    Bullet *shoot(GLfloat deltaIdleTime);
+    Bomb *dropBomb(GLfloat deltaIdleTime);
 };
 
 #endif
