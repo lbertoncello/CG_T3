@@ -5,7 +5,6 @@ void PlayerAirplane::draw()
     glPushMatrix();
     glTranslatef(dX, dY, 0.0);
     glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
-    //glRotatef(-15, 0.0, 0.0, 1.0);
 
     drawWings();
     drawCannon();
@@ -17,12 +16,12 @@ void PlayerAirplane::draw()
 
 void PlayerAirplane::drawMainBody()
 {
-    glPushMatrix();
+    // glPushMatrix();
 
     drawer.drawEllipse(this->body);
     drawer.drawCircle(this->body);
 
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 void PlayerAirplane::drawTail()
@@ -42,7 +41,7 @@ void PlayerAirplane::drawCockpit()
 {
     glPushMatrix();
 
-    float cockpitRadius = this->body.getRadius() / 2;
+    GLfloat cockpitRadius = this->body.getRadius() / 2;
     Color cockpitColor(0.0, 0.0, 0.0);
 
     glTranslatef(this->body.getRadius() / 3, 0.0, 0.0);
@@ -92,7 +91,7 @@ void PlayerAirplane::drawWings()
 
 void PlayerAirplane::drawPropeller()
 {
-    glPushMatrix();
+    // glPushMatrix();
 
     Color rodColor(0.0, 0.0, 0.0);
     //glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
@@ -123,7 +122,7 @@ void PlayerAirplane::drawPropeller()
 
     glPopMatrix();
 
-    glPopMatrix();
+    // glPopMatrix();
 }
 
 void PlayerAirplane::drawCannon()
@@ -139,12 +138,12 @@ void PlayerAirplane::drawCannon()
     glPopMatrix();
 }
 
-float PlayerAirplane::calcMovement_x(GLfloat deltaIdleTime)
+GLfloat PlayerAirplane::calcMovement_x(GLfloat deltaIdleTime)
 {
     return speedNorm * deltaIdleTime * cos(moveAngle);
 }
 
-float PlayerAirplane::calcMovement_y(GLfloat deltaIdleTime)
+GLfloat PlayerAirplane::calcMovement_y(GLfloat deltaIdleTime)
 {
     return speedNorm * deltaIdleTime * sin(moveAngle);
 }
@@ -165,19 +164,19 @@ void PlayerAirplane::updateTurningAngles(GLfloat deltaIdleTime)
     updateTurnRightAngle(deltaIdleTime);
 }
 
-float PlayerAirplane::calcNextMovement_x(GLfloat deltaIdleTime, float nextMoveAngle)
+GLfloat PlayerAirplane::calcNextMovement_x(GLfloat deltaIdleTime, GLfloat nextMoveAngle)
 {
     return speedNorm * deltaIdleTime * cos(nextMoveAngle);
 }
 
-float PlayerAirplane::calcNextMovement_y(GLfloat deltaIdleTime, float nextMoveAngle)
+GLfloat PlayerAirplane::calcNextMovement_y(GLfloat deltaIdleTime, GLfloat nextMoveAngle)
 {
     return speedNorm * deltaIdleTime * sin(nextMoveAngle);
 }
 
 Point PlayerAirplane::getNextPosition(GLfloat deltaIdleTime)
 {
-    float nextMoveAngle = getNextMoveAngle(deltaIdleTime);
+    GLfloat nextMoveAngle = getNextMoveAngle(deltaIdleTime);
     Point nextPosition;
 
     nextPosition.setX(dX + calcNextMovement_x(deltaIdleTime, nextMoveAngle));
@@ -199,7 +198,7 @@ bool PlayerAirplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, 
     return adjustedBody.checkIntersection(enemyBody, this->drawer.getNumSegments());
 }
 
-bool PlayerAirplane::isInside(Circle circle, int moveDirection, GLfloat deltaIdleTime)
+bool PlayerAirplane::isInside(Circle circle, GLint moveDirection, GLfloat deltaIdleTime)
 {
     Circle adjustedBody = this->body;
     // adjustedBody.setCenter_x(this->dX);
@@ -235,9 +234,9 @@ Circle PlayerAirplane::getAdjustedBody()
     return adjustedBody;
 }
 
-float PlayerAirplane::getNextMoveAngle(GLfloat deltaIdleTime)
+GLfloat PlayerAirplane::getNextMoveAngle(GLfloat deltaIdleTime)
 {
-    float nextAngle = moveAngle;
+    GLfloat nextAngle = moveAngle;
 
     if (isTurningLeft())
     {
@@ -270,7 +269,7 @@ void PlayerAirplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
 
 void PlayerAirplane::updateInclinationAngle(GLfloat deltaIdleTime)
 {
-    float nextAngle = inclinationAngle;
+    GLfloat nextAngle = inclinationAngle;
 
     if (isTurningLeft())
     {
@@ -306,7 +305,7 @@ void PlayerAirplane::incrementSpeed()
     speedNorm += speedIncrement;
 }
 
-void PlayerAirplane::incrementSpeed(float speedIncrement)
+void PlayerAirplane::incrementSpeed(GLfloat speedIncrement)
 {
     speedNorm += speedIncrement;
 }
@@ -321,7 +320,7 @@ void PlayerAirplane::decrementSpeed()
     }
 }
 
-void PlayerAirplane::decrementSpeed(float speedIncrement)
+void PlayerAirplane::decrementSpeed(GLfloat speedIncrement)
 {
     speedNorm -= speedIncrement;
 
@@ -333,24 +332,15 @@ void PlayerAirplane::decrementSpeed(float speedIncrement)
 
 void PlayerAirplane::teleport()
 {
-    // float adjustX = 500 + this->startPosition.getX();
-    // float adjustY = 500 + this->startPosition.getY();
+    GLfloat x = dX;
+    GLfloat y = dY;
 
-    float x = dX;
-    float y = dY;
-
-    float alpha = atan2(y, x) * 180 / M_PI;
-    float beta = (calc.degreesToRadians(this->inclinationAngle) - M_PI / 2) * 180 / M_PI;
-    float theta = (-2 * (alpha - beta)) * M_PI / 180;
-
-    // float alpha = atan2(y, x) * 180 / M_PI;
-    // float theta = (-2 * (alpha - this->inclinationAngle)) * M_PI / 180;
+    GLfloat alpha = atan2(y, x) * 180 / M_PI;
+    GLfloat beta = (calc.degreesToRadians(this->inclinationAngle) - M_PI / 2) * 180 / M_PI;
+    GLfloat theta = (-2 * (alpha - beta)) * M_PI / 180;
 
     this->dX = (x * cos(theta)) - (y * sin(theta));
     this->dY = (x * sin(theta)) + (y * cos(theta));
-
-    // aviao->setX((x * cos(theta)) - (y * sin(theta)));
-    // aviao->setY((x * sin(theta)) + (y * cos(theta)));
 }
 
 Point PlayerAirplane::getCurrentPositionAdjusted()
@@ -359,27 +349,53 @@ Point PlayerAirplane::getCurrentPositionAdjusted()
     currentPositionAdjusted.setX(this->body.getCenter_x() + dX - this->startPosition.getX());
     currentPositionAdjusted.setY(this->body.getCenter_y() + dY - this->startPosition.getY());
 
-    // currentPositionAdjusted.setX( dX );
-    // currentPositionAdjusted.setY( dY );
+    return currentPositionAdjusted;
+}
 
-    // cout << "x: " << currentPositionAdjusted.getX() << endl;
-    // cout << "y: " << currentPositionAdjusted.getY() << endl;
-    // cout << "x: " << currentPosition.getX() << endl;
-    // cout << "y: " << currentPosition.getY() << endl;
+Point PlayerAirplane::getPositionAdjusted(Point position)
+{
+    Point currentPositionAdjusted;
+    currentPositionAdjusted.setX(this->body.getCenter_x() + position.getX() - this->startPosition.getX());
+    currentPositionAdjusted.setY(this->body.getCenter_y() + position.getY() - this->startPosition.getY());
+
+    // currentPositionAdjusted.setX(position.getX() + dX - this->startPosition.getX());
+    // currentPositionAdjusted.setY(position.getY() + dY - this->startPosition.getY());
 
     return currentPositionAdjusted;
 }
 
-void PlayerAirplane::rotateCannon(float moviment, float deltaIdleTime)
+void PlayerAirplane::rotateCannon(GLfloat moviment, GLfloat deltaIdleTime)
 {
-    cannonAngle += PI / 2 * moviment / 10 * deltaIdleTime;
+    GLfloat nextCannonAngle = this->cannonAngle + moviment * 0.1 * deltaIdleTime;
 
-    if (cannonAngle > PI / 4)
+    if (nextCannonAngle > PI / 4)
     {
         cannonAngle = PI / 4;
     }
-    else if (cannonAngle < -PI / 4)
+    else if (nextCannonAngle < -PI / 4)
     {
-        cannonAngle = - PI / 4;
+        cannonAngle = -PI / 4;
+    } else {
+        cannonAngle = nextCannonAngle;
     }
+}
+
+Bullet* PlayerAirplane::shoot(GLfloat deltaIdleTime)
+{
+    GLfloat resultingAngle = calc.degreesToRadians(inclinationAngle) + cannonAngle;
+    GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
+    Point bulletCoordinates;
+
+    bulletCoordinates.setX(
+        dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2 * cos(resultingAngle));
+    bulletCoordinates.setY(
+        dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2 * sin(resultingAngle));
+
+    Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
+
+    return new Bullet(bulletBodyCoordinates, bulletCoordinates, bulletSpeed, resultingAngle);
+}
+
+Bomb* PlayerAirplane::dropBomb(GLfloat deltaIdleTime)
+{
 }

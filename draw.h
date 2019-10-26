@@ -17,9 +17,9 @@ using namespace std;
 class Draw
 {
 private:
-    float PI = 3.14159;
-    int num_segments = 300;
-    float radius = 0.1;
+    GLfloat PI = 3.14159;
+    GLint num_segments = 300;
+    GLfloat radius = 0.1;
 
     Point currentCenter;
     vector<Circle> circles;
@@ -28,19 +28,19 @@ private:
     vector<Line>::iterator line_it;
     Circle *currentCircleMoving = NULL;
 
-    void drawCircle(float cx, float cy, float r, int num_segments, Color color);
-    void drawFilledCircle(float x1, float y1, double radius, Color color);
-    void drawEllipse(float rx, float ry, Color color, int num_segments);
+    void drawCircle(GLfloat cx, GLfloat cy, GLfloat r, GLint num_segments, Color color);
+    void drawFilledCircle(GLfloat x1, GLfloat y1, double radius, Color color);
+    void drawEllipse(GLfloat rx, GLfloat ry, Color color, GLint num_segments);
 
 public:
     Draw() {}
 
-    int getNumSegments()
+    GLint getNumSegments()
     {
         return num_segments;
     }
 
-    float getRadius()
+    GLfloat getRadius()
     {
         return radius;
     }
@@ -55,7 +55,7 @@ public:
         currentCircleMoving;
     }
 
-    void setRadius(float radius)
+    void setRadius(GLfloat radius)
     {
         this->radius = radius;
     }
@@ -78,14 +78,14 @@ public:
     void addCircleAtCurrentCenter();
     bool thereIsCircleMoving();
     void updateCurrentCircleMoving();
-    void updateCurrentCenter(float x, float y, float x_window_size, float y_window_size);
+    void updateCurrentCenter(GLfloat x, GLfloat y, GLfloat x_window_size, GLfloat y_window_size);
     bool checkIntersection(Circle circle);
     void drawCircle(Color color);
     void drawCircle(Circle circle);
     void drawEllipse(Circle circle);
-    void drawEllipse(float radius, Color color);
+    void drawEllipse(GLfloat radius, Color color);
     void drawRectangle(Point p1, Point p2);
-    void drawRectangle(float width, float height, Color color);
+    void drawRectangle(GLfloat width, GLfloat height, Color color);
     void drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color);
     void drawTriangle(Point p1, Point p2, Point p3, Color color);
     void drawFilledCircle(Color color);

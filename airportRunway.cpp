@@ -1,6 +1,6 @@
 #include "airportRunway.h"
 
-void AirportRunway::setAdjustedBody(float coordinateCorrection_x, float coordinateCorrection_y)
+void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coordinateCorrection_y)
 {
     Point p1(-coordinateCorrection_x + this->getBody().getPoint1_x(), -coordinateCorrection_y + this->getBody().getPoint1_y());
     Point p2(-coordinateCorrection_x + this->getBody().getPoint2_x(), -coordinateCorrection_y + this->getBody().getPoint2_y());
@@ -15,7 +15,7 @@ void AirportRunway::draw()
     drawer.drawLine(this->adjustedBody);
 }
 
-float AirportRunway::calcInclinationAngle()
+GLfloat AirportRunway::calcInclinationAngle()
 {
     return calc.radiansToDegrees(
         atan2f(

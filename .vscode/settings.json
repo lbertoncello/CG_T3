@@ -38,6 +38,7 @@
         "cinttypes": "cpp",
         "utility": "cpp",
         "typeinfo": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "string": "cpp"
     }
 }

@@ -26,21 +26,28 @@ class Game
     AirportRunway airportRunway;
     vector<FlightEnemy> flightEnemies;
     vector<TerrestrialEnemy> terrestrialEnemies;
+    vector<Bullet*> bullets;
+    vector<Bomb*> bombs;
     GLfloat deltaIdleTime;
     bool gameOver;
 
-    void updateTakeOff(high_resolution_clock::time_point currentTime, float takeOffTimeElapsed);
-    vector<float> calcTakeOffAcceleration();
-    Point currentTakeOffPosition(float time);
-    float calcSizeIncreaseAcceleration();
-    float currentRadius(float time);
+    void updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat takeOffTimeElapsed);
+    vector<GLfloat> calcTakeOffAcceleration();
+    Point currentTakeOffPosition(GLfloat time);
+    GLfloat calcSizeIncreaseAcceleration();
+    GLfloat currentRadius(GLfloat time);
     void drawFlightArea();
     void drawPlayerAirplane();
     void drawAirportRunway();
     void drawFlightEnemies();
     void drawTerrestrialEnemies();
+    void drawBullets();
+    void drawBombs();
     bool checkFlightEnemiesCollision();
     bool isPlayerAirplaneInsideFlightArea();
+    void eraseBullets();
+    void eraseBombs();
+    bool isBulletInsideFlightArea(Bullet* bullet);
 
 public:
     Game() {}
@@ -108,7 +115,9 @@ public:
     void init();
     void drawGame(GLfloat deltaIdleTime);
     void reset();
-    void rotatePlayerAirplaneCannon(float moviment);
+    void rotatePlayerAirplaneCannon(GLfloat moviment);
+    void shoot();
+    void dropBomb();
 };
 
 #endif

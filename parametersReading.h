@@ -32,7 +32,7 @@ public:
     void arenaInit(TiXmlElement *application);
     void jogadorInit(TiXmlElement *application);
     bool parametersInit(const char *filename);
-    void windowInit(float x_size, float y_size);
+    void windowInit(GLfloat x_size, GLfloat y_size);
     void readCircle(TiXmlElement *circle);
     Color readSVGRGBColor(string style);
     void readLine(TiXmlElement *line);

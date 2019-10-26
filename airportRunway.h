@@ -9,7 +9,7 @@ class AirportRunway
 {
     Line body;
     Line adjustedBody;
-    float scalarMiddle;
+    GLfloat scalarMiddle;
     Draw drawer;
     Calc calc;
 
@@ -26,7 +26,7 @@ public:
         return body;
     }
 
-    float getScalarMiddle()
+    GLfloat getScalarMiddle()
     {
         return scalarMiddle;
     }
@@ -36,7 +36,7 @@ public:
         this->body = body;
     }
 
-    void setScalarMiddle(float scalarMiddle)
+    void setScalarMiddle(GLfloat scalarMiddle)
     {
         this->scalarMiddle = scalarMiddle;
     }
@@ -45,10 +45,10 @@ public:
         return this->adjustedBody;
     }
     
-    void setAdjustedBody(float coordinateCorrection_x, float coordinateCorrection_y);
+    void setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coordinateCorrection_y);
 
     void draw();
-    float calcInclinationAngle();
+    GLfloat calcInclinationAngle();
 };
 
 #endif

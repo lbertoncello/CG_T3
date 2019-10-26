@@ -58,7 +58,7 @@ void GameRuntime::keyOperations(void)
     }
 }
 
-void GameRuntime::keyPress(unsigned char key, int x, int y)
+void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
 {
     if (key == 'a')
     {
@@ -86,35 +86,41 @@ void GameRuntime::keyPress(unsigned char key, int x, int y)
     }
 }
 
-void GameRuntime::keyUp(unsigned char key, int x, int y)
+void GameRuntime::keyUp(unsigned char key, GLint x, GLint y)
 {
     keyStates[key] = false; // Set the state of the current key to not pressed
 }
 
-void GameRuntime::mouse(int button, int state, int x, int y)
+void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
 {
-    if (button == GLUT_LEFT_BUTTON)
+    if (!game.isGameOver())
     {
-        if (state == GLUT_UP)
+        if (game.isPlayerFlying())
         {
-        }
-        else
-        {
-        }
-    }
+            if (button == GLUT_LEFT_BUTTON)
+            {
+                if (state == GLUT_UP)
+                {
+                    game.shoot();
+                }
+            }
 
-    if (button == GLUT_RIGHT_BUTTON)
-    {
-        if (state == GLUT_UP)
-        {
-        }
-        else
-        {
+            if (button == GLUT_RIGHT_BUTTON)
+            {
+                if (state == GLUT_UP)
+                {
+                    game.dropBomb();
+                }
+                else
+                {
+                    game.dropBomb();
+                }
+            }
         }
     }
 }
 
-void GameRuntime::motion(int x, int y)
+void GameRuntime::motion(GLint x, GLint y)
 {
     if (!game.isGameOver())
     {
@@ -134,7 +140,7 @@ void GameRuntime::motion(int x, int y)
     }
 }
 
-void GameRuntime::passiveMotion(int x, int y)
+void GameRuntime::passiveMotion(GLint x, GLint y)
 {
     if (!game.isGameOver())
     {

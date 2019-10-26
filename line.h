@@ -6,7 +6,7 @@
 
 class Line
 {
-    int id;
+    GLint id;
     Point point1;
     Point point2;
     Color color;
@@ -20,14 +20,14 @@ public:
         this->point2 = point2;
     }
 
-    Line(int id, Point point1, Point point2)
+    Line(GLint id, Point point1, Point point2)
     {
         this->id = id;
         this->point1 = point1;
         this->point2 = point2;
     }
 
-    int getId()
+    GLint getId()
     {
         return id;
     }
@@ -42,22 +42,22 @@ public:
         return point2;
     }
 
-    float getPoint1_x()
+    GLfloat getPoint1_x()
     {
         return point1.getX();
     }
 
-    float getPoint1_y()
+    GLfloat getPoint1_y()
     {
         return point1.getY();
     }
 
-    float getPoint2_x()
+    GLfloat getPoint2_x()
     {
         return point2.getX();
     }
 
-    float getPoint2_y()
+    GLfloat getPoint2_y()
     {
         return point2.getY();
     }
@@ -67,7 +67,7 @@ public:
         return color;
     }
 
-    void setId(int id)
+    void setId(GLint id)
     {
         this->id = id;
     }
@@ -82,22 +82,22 @@ public:
         this->point2.update(point);
     }
 
-    void setPoint1_x(float x)
+    void setPoint1_x(GLfloat x)
     {
         this->point1.setX(x);
     }
 
-    void setPoint1_y(float y)
+    void setPoint1_y(GLfloat y)
     {
         this->point1.setY(y);
     }
 
-    void setPoint2_x(float x)
+    void setPoint2_x(GLfloat x)
     {
         this->point2.setX(x);
     }
 
-    void setPoint2_y(float y)
+    void setPoint2_y(GLfloat y)
     {
         this->point2.setY(y);
     }

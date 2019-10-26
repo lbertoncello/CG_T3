@@ -2,6 +2,7 @@
 #define CIRCLE_H
 
 #include <iostream>
+#include <GL/glut.h>
 
 #include "point.h"
 #include "color.h"
@@ -9,9 +10,9 @@
 class Circle
 {
 private:
-    int id;
+    GLint id;
     Point center;
-    float radius;
+    GLfloat radius;
     Color color;
     bool moving = false;
     bool terrestrial = false;
@@ -20,27 +21,34 @@ private:
 public:
     Circle() {}
 
-    Circle(Point center, float radius)
+    Circle(Point center, GLfloat radius)
     {
         this->center = center;
         this->radius = radius;
     }
 
-    Circle(int id, Point center, float radius)
+    Circle(Point center, GLfloat radius, Color color)
+    {
+        this->center = center;
+        this->radius = radius;
+        this->color = color;
+    }
+
+    Circle(GLint id, Point center, GLfloat radius)
     {
         this->id = id;
         this->center = center;
         this->radius = radius;
     }
 
-    Circle(float center_x, float center_y, float radius)
+    Circle(GLfloat center_x, GLfloat center_y, GLfloat radius)
     {
         this->center.setX(center_x);
         this->center.setY(center_y);
         this->radius = radius;
     }
 
-    Circle(int id, float center_x, float center_y, float radius)
+    Circle(GLint id, GLfloat center_x, GLfloat center_y, GLfloat radius)
     {
         this->id = id;
         this->center.setX(center_x);
@@ -48,7 +56,7 @@ public:
         this->radius = radius;
     }
 
-    int getId()
+    GLint getId()
     {
         return id;
     }
@@ -57,17 +65,17 @@ public:
         return center;
     }
 
-    float getCenter_x()
+    GLfloat getCenter_x()
     {
         return center.getX();
     }
 
-    float getCenter_y()
+    GLfloat getCenter_y()
     {
         return center.getY();
     }
 
-    float getRadius()
+    GLfloat getRadius()
     {
         return radius;
     }
@@ -92,22 +100,22 @@ public:
         return mainCircle;
     }
 
-    void setId(int id)
+    void setId(GLint id)
     {
         this->id = id;
     }
 
-    void setCenter_x(float center_x)
+    void setCenter_x(GLfloat center_x)
     {
         this->center.setX(center_x);
     }
 
-    void setCenter_y(float center_y)
+    void setCenter_y(GLfloat center_y)
     {
         this->center.setY(center_y);
     }
 
-    void setRadius(float radius)
+    void setRadius(GLfloat radius)
     {
         this->radius = radius;
     }
@@ -138,16 +146,16 @@ public:
         this->center.setY(p.getY());
     }
 
-    void updateCenter(float x, float y)
+    void updateCenter(GLfloat x, GLfloat y)
     {
         this->center.setX(x);
         this->center.setY(y);
     }
 
     bool isPointInCircle(Point p);
-    bool isPointInCircle(float x, float y);
-    bool checkIntersection(Circle circle, int num_segments);
-    bool isInside(Circle circle, int num_segments);
+    bool isPointInCircle(GLfloat x, GLfloat y);
+    bool checkIntersection(Circle circle, GLint num_segments);
+    bool isInside(Circle circle, GLint num_segments);
 };
 
 #endif
