@@ -27,7 +27,7 @@ void Game::eraseBombs()
     {
         delete (*bombs_it);
     }
-    bullets.clear();
+    bombs.clear();
 }
 
 vector<GLfloat> Game::calcTakeOffAcceleration()
@@ -245,9 +245,19 @@ void Game::drawBombs()
     glPushMatrix();
 
     vector<Bomb *>::iterator bombs_it;
-    for (bombs_it = bombs.begin(); bombs_it != bombs.end(); bombs_it++)
+    for (bombs_it = bombs.begin(); bombs_it != bombs.end();)
     {
-        (*bombs_it)->draw();
+        if (isBombInsideFlightArea((*bombs_it)))
+        {
+            (*bombs_it)->move(deltaIdleTime);
+            (*bombs_it)->draw();
+            bombs_it++;
+        }
+        else
+        {
+            delete (*bombs_it);
+            bombs_it = bombs.erase(bombs_it);
+        }
     }
 
     glPopMatrix();
@@ -262,9 +272,9 @@ void Game::drawGame(GLfloat deltaIdleTime)
     drawTerrestrialEnemies();
     drawFlightEnemies();
     drawAirportRunway();
+    drawBombs();
     drawPlayerAirplane();
     drawBullets();
-    drawBombs();
 
     // glPopMatrix();
 }
@@ -272,6 +282,11 @@ void Game::drawGame(GLfloat deltaIdleTime)
 bool Game::isBulletInsideFlightArea(Bullet *bullet)
 {
     return flightArea.getArea().isPointInCircle(bullet->getCurrentPositionAdjusted());
+}
+
+bool Game::isBombInsideFlightArea(Bomb *bomb)
+{
+    return flightArea.getArea().isPointInCircle(bomb->getCurrentPositionAdjusted());
 }
 
 bool Game::checkFlightEnemiesCollision()
