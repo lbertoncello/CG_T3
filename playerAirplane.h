@@ -33,10 +33,10 @@ class PlayerAirplane
     Draw drawer;
     vector<GLfloat> speed;
     GLfloat moveAngle;
-    GLfloat speedMultiplier;
+    GLfloat airplaneSpeedMultiplier = 1.0;
+    GLfloat bulletSpeedMultiplier = 1.0;
     Calc calc;
     GLfloat cannonAngle = 0.0;
-    Point cannonCoordinates;
 
     void speedInit()
     {
@@ -119,7 +119,7 @@ public:
 
     GLfloat getSpeedMultiplier()
     {
-        return speedMultiplier;
+        return airplaneSpeedMultiplier;
     }
 
     GLfloat getSpeedNorm()
@@ -176,8 +176,8 @@ public:
 
     void setSpeed(vector<GLfloat> speed)
     {
-        //GLfloat speedNorm = calc.norm(speed) * this->speedMultiplier;
-        speedNorm = calc.norm(speed) * this->speedMultiplier;
+        //GLfloat speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
+        speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
         moveAngle = -atan2f(speed[1], speed[0]);
 
         this->speed[0] = (speedNorm * cos(45.0 * 3.14159265 / 180));
@@ -189,9 +189,9 @@ public:
         this->speedNorm = speedNorm;
     }
 
-    void setSpeedMultiplier(GLfloat speedMultiplier)
+    void setAirplaneSpeedMultiplier(GLfloat airplaneSpeedMultiplier)
     {
-        this->speedMultiplier = speedMultiplier;
+        this->airplaneSpeedMultiplier = airplaneSpeedMultiplier;
     }
 
     void setInclinationAngle(GLfloat inclinationAngle)
@@ -202,6 +202,10 @@ public:
     GLfloat getInclinationAngle()
     {
         return this->inclinationAngle;
+    }
+
+    void setBulletSpeedMultiplier(GLfloat bulletSpeedMultiplier) {
+        this->bulletSpeedMultiplier = bulletSpeedMultiplier;
     }
 
     void setTurningLeft(bool turningLeft)
@@ -231,10 +235,6 @@ public:
 
     void draw();
     void move(GLfloat deltaIdleTime);
-    // void moveUp(GLfloat deltaIdleTime);
-    // void moveDown(GLfloat deltaIdleTime);
-    // void moveLeft(GLfloat deltaIdleTime);
-    // void moveRight(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
     GLfloat calcMovement_y(GLfloat deltaIdleTime);
@@ -250,8 +250,8 @@ public:
     void teleport();
     Point getCurrentPositionAdjusted();
     void rotateCannon(GLfloat moviment, GLfloat deltaIdleTime);
-    Bullet shoot(GLfloat deltaIdleTime);
-    Bomb dropBomb(GLfloat deltaIdleTime);
+    Bullet* shoot(GLfloat deltaIdleTime);
+    Bomb* dropBomb(GLfloat deltaIdleTime);
 };
 
 #endif

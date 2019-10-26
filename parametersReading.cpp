@@ -20,6 +20,9 @@
             if (strcmp(jogadorAttribute->Name(), "vel") == 0)
             {
                 this->gameRuntime->setPlayerAirplaneSpeedMult(stof(jogadorAttribute->Value()));
+            } else if (strcmp(jogadorAttribute->Name(), "velTiro") == 0)
+            {
+                this->gameRuntime->setBulletSpeedMult(stof(jogadorAttribute->Value()));
             }
 
             jogadorAttribute = jogadorAttribute->Next();
@@ -186,7 +189,8 @@
                 }
             }
 
-            this->gameRuntime->getGame().getPlayerAirplane().setSpeedMultiplier(this->gameRuntime->getPlayerAirplaneSpeedMult());
+            this->gameRuntime->getGame().getPlayerAirplane().setAirplaneSpeedMultiplier(this->gameRuntime->getPlayerAirplaneSpeedMult());
+            this->gameRuntime->getGame().getPlayerAirplane().setBulletSpeedMultiplier(this->gameRuntime->getBulletSpeedMult());
 
             return true;
         }

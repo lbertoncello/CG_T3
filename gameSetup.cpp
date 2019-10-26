@@ -33,12 +33,6 @@ void GameSetup::init(void)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // glOrtho(gameRuntime.getGame().getFlightArea().getArea().getCenter_x() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_x() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_y() + gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-    //         gameRuntime.getGame().getFlightArea().getArea().getCenter_y() - gameRuntime.getGame().getFlightArea().getArea().getRadius(),
-    //         -1, 1);
-
     glOrtho(-gameRuntime.getGame().getFlightArea().getArea().getRadius(),
             gameRuntime.getGame().getFlightArea().getArea().getRadius(),
             gameRuntime.getGame().getFlightArea().getArea().getRadius(),

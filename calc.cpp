@@ -15,14 +15,14 @@ GLfloat Calc::euclideanDistance(GLint x1, GLint y1, GLint x2, GLint y2)
 
 GLfloat Calc::norm(vector<GLfloat> v)
 {
-	GLfloat sum = 0;
+    GLfloat sum = 0;
 
-	for (vector<GLfloat>::iterator it = v.begin(); it != v.end(); ++it)
-	{
-		sum += (*it * *it);
-	}
+    for (vector<GLfloat>::iterator it = v.begin(); it != v.end(); ++it)
+    {
+        sum += (*it * *it);
+    }
 
-	return sqrt(sum);
+    return sqrt(sum);
 }
 
 GLfloat Calc::euclideanDistance(Point point1, Point point2)
@@ -108,6 +108,7 @@ vector<GLfloat> Calc::zerosVector(GLint numOfDimensions)
     return zeros;
 }
 
-    GLfloat Calc::degreesToRadians(GLfloat degrees) {
-        return 2*M_PI * (degrees / 360);
-    }
+GLfloat Calc::degreesToRadians(GLfloat degrees)
+{
+    return 2 * M_PI * (degrees / 360.0);
+}

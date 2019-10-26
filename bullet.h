@@ -9,67 +9,64 @@ class Bullet
     Circle body;
     GLfloat dX;
     GLfloat dY;
-    GLfloat speed;
-    GLfloat speedAngle;
-    GLfloat positionAngle = 0;
+    GLfloat speedNorm;
+    GLfloat moveAngle;
+    Point startPosition;
     Draw drawer;
+
+    GLfloat calcMovement_x(GLfloat deltaIdleTime);
+    GLfloat calcMovement_y(GLfloat deltaIdleTime);
 
 public:
     Bullet() {}
 
-    Bullet(Circle body, Point moveCoordinates, GLfloat speed, GLfloat speedAngle)
+    Bullet(Circle body, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
     {
         this->body = body;
-        this->speed = speed;
-        this->speedAngle = speedAngle;
+        this->speedNorm = speedNorm;
+        this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
     }
 
-    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speed, GLfloat speedAngle, Color color)
+    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle, Color color)
     {
         this->body = Circle(bodyCoordinates, 4, color);
-        this->speed = speed;
-        this->speedAngle = speedAngle;
+        this->speedNorm = speedNorm;
+        this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
     }
 
-    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speed, GLfloat speedAngle)
+    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
     {
         this->body = Circle(bodyCoordinates, 4, Color(1, 0, 1));
-        this->speed = speed;
-        this->speedAngle = speedAngle;
+        this->speedNorm = speedNorm;
+        this->moveAngle = moveAngle;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        this->startPosition.setX(dX);
+        this->startPosition.setY(dY);
     }
 
-    Bullet(Point bodyCoordinates, Point moveCoordinates, GLfloat speed, GLfloat speedAngle, GLfloat positionAgle)
-    {
-        this->body = Circle(bodyCoordinates, 4, Color(1, 0, 1));
-        this->speed = speed;
-        this->speedAngle = speedAngle;
-        this->dX = moveCoordinates.getX();
-        this->dY = moveCoordinates.getY();
-        this->positionAngle = positionAgle;
-    }
-
-    Circle getBody()
+    Circle &getBody()
     {
         return body;
     }
 
     GLfloat getSpeed()
     {
-        return speed;
+        return speedNorm;
     }
 
     GLfloat getspeedAngle()
     {
-        return speedAngle;
+        return moveAngle;
     }
 
     void draw();
+    void move(GLfloat deltaIdleTime);
+    Point getCurrentPositionAdjusted();
 };
 
 #endif

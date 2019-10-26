@@ -10,10 +10,29 @@ bool beforeAirportRunwayMiddle;
 
 Calc calc;
 
+void Game::eraseBullets()
+{
+    vector<Bullet *>::iterator bullets_it;
+    for (bullets_it = bullets.begin(); bullets_it != bullets.end(); bullets_it++)
+    {
+        delete (*bullets_it);
+    }
+    bullets.clear();
+}
+
+void Game::eraseBombs()
+{
+    vector<Bomb *>::iterator bombs_it;
+    for (bombs_it = bombs.begin(); bombs_it != bombs.end(); bombs_it++)
+    {
+        delete (*bombs_it);
+    }
+    bullets.clear();
+}
+
 vector<GLfloat> Game::calcTakeOffAcceleration()
 {
     Point initialPosition = airportRunway.getAdjustedBody().getPoint1();
-    //GLfloat finalPosition = calc.euclideanDistance(airportRunway.getBody().getPoint1(), airportRunway.getBody().getPoint2());
     Point finalPosition = airportRunway.getAdjustedBody().getPoint2();
     vector<GLfloat> initialSpeed = calc.zerosVector(2);
     GLfloat time = TAKEOFF_TIME;
@@ -24,6 +43,8 @@ vector<GLfloat> Game::calcTakeOffAcceleration()
 void Game::reset()
 {
     playerAirplane.reset();
+    eraseBullets();
+    eraseBombs();
     init();
 }
 
@@ -194,11 +215,18 @@ void Game::drawBullets()
 {
     glPushMatrix();
 
-    vector<Bullet>::iterator bullets_it;
-    for (bullets_it = bullets.begin(); bullets_it != bullets.end(); bullets_it++)
+    vector<Bullet *>::iterator bullets_it;
+    for (bullets_it = bullets.begin(); bullets_it != bullets.end(); )
     {
-        //glTranslatef(-flightArea.getArea().getCenter_x() + bullets_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + bullets_it->getBody().getCenter_y(), 0.0);
-        bullets_it->draw();
+        if (isBulletInsideFlightArea((*bullets_it)))
+        {
+            (*bullets_it)->move(deltaIdleTime);
+            (*bullets_it)->draw();
+            bullets_it++;
+        } else {
+            delete (*bullets_it);
+            bullets_it = bullets.erase(bullets_it);
+        }
     }
 
     glPopMatrix();
@@ -206,14 +234,15 @@ void Game::drawBullets()
 
 void Game::drawBombs()
 {
-    vector<Bomb>::iterator bombs_it;
+    glPushMatrix();
+
+    vector<Bomb *>::iterator bombs_it;
     for (bombs_it = bombs.begin(); bombs_it != bombs.end(); bombs_it++)
     {
-        glPushMatrix();
-        glTranslatef(-flightArea.getArea().getCenter_x() + bombs_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + bombs_it->getBody().getCenter_y(), 0.0);
-        bombs_it->draw();
-        glPopMatrix();
+        (*bombs_it)->draw();
     }
+
+    glPopMatrix();
 }
 
 void Game::drawGame(GLfloat deltaIdleTime)
@@ -230,6 +259,11 @@ void Game::drawGame(GLfloat deltaIdleTime)
     drawBombs();
 
     // glPopMatrix();
+}
+
+bool Game::isBulletInsideFlightArea(Bullet *bullet)
+{
+    return flightArea.getArea().isPointInCircle(bullet->getCurrentPositionAdjusted());
 }
 
 bool Game::checkFlightEnemiesCollision()

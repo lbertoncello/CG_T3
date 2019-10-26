@@ -93,24 +93,29 @@ void GameRuntime::keyUp(unsigned char key, GLint x, GLint y)
 
 void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
 {
-    if (button == GLUT_LEFT_BUTTON)
+    if (!game.isGameOver())
     {
-        if (state == GLUT_UP)
+        if (game.isPlayerFlying())
         {
-        }
-        else
-        {
-            game.shoot();
-        }
-    }
+            if (button == GLUT_LEFT_BUTTON)
+            {
+                if (state == GLUT_UP)
+                {
+                    game.shoot();
+                }
+            }
 
-    if (button == GLUT_RIGHT_BUTTON)
-    {
-        if (state == GLUT_UP)
-        {
-        }
-        else
-        {
+            if (button == GLUT_RIGHT_BUTTON)
+            {
+                if (state == GLUT_UP)
+                {
+                    game.dropBomb();
+                }
+                else
+                {
+                    game.dropBomb();
+                }
+            }
         }
     }
 }
