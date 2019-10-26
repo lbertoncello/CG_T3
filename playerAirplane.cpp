@@ -19,7 +19,7 @@ void PlayerAirplane::drawMainBody()
     // glPushMatrix();
 
     drawer.drawEllipse(this->body);
-    drawer.drawCircle(this->body);
+    // drawer.drawCircle(this->body);
 
     // glPopMatrix();
 }
@@ -115,7 +115,9 @@ void PlayerAirplane::drawPropeller()
     Point p5(this->body.getRadius() / 4, this->body.getRadius() / 6);
     Point p6(0, 0);
 
+    incrementPropellerAngle();
     glTranslatef(this->body.getRadius() / 2.0, 0, 0.0);
+    glRotatef(propellerAngle, 1.0, 0.0, 0.0);
 
     drawer.drawTriangle(p3, p2, p1, propellerColor);
     drawer.drawTriangle(p4, p5, p6, propellerColor);
@@ -290,7 +292,7 @@ void PlayerAirplane::reset()
     dX = 0; //variação em X
     dY = 0; //variação em Y
     inclinationAngle = 0;
-    speedNorm = 0;
+    speedNorm = 0.0;
     turningLeft = false;
     turningRight = false;
     flying = false;
@@ -298,6 +300,7 @@ void PlayerAirplane::reset()
     startPositionInitialized = false;
     initialRadiusInitialized = false;
     cannonAngle = 0.0;
+    propellerAngle = 0.0;
 }
 
 void PlayerAirplane::incrementSpeed()
